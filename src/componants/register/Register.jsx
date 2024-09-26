@@ -1,62 +1,56 @@
 import React from 'react'
 import './register.css'
-import crat from '../../assets/logo-color.png'
 import crat2 from '../../assets/logo-no-background.png'
 export default function Register() {
 return <>
-    <section className="register p-5">
-        <div className="container h-100">
-            <div className="row d-flex justify-content-center align-items-center h-100">
-                <div className="col-lg-12 col-xl-11">
-                    <div className="card text-black rounded-5">
-                        <div className="card-body p-md-5">
-                            <div className="row justify-content-center">
-                                <div className="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
-                                    <p className="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Sign up</p>
-                                    <form className="mx-1 mx-md-4">
-                                        <div className="d-flex flex-row align-items-center mb-4">
-                                            <i className="fas fa-user fa-lg me-3 fa-fw"></i>
-                                            <div data-mdb-input-init className="form-outline flex-fill mb-0">
-                                                <input type="text" id="form3Example1c" className="form-control" />
-                                                <label className="form-label" for="form3Example1c">User Name</label>
-                                            </div>
-                                        </div>
-                                        <div className="d-flex flex-row align-items-center mb-4">
-                                            <i className="fas fa-envelope fa-lg me-3 fa-fw"></i>
-                                            <div data-mdb-input-init className="form-outline flex-fill mb-0">
-                                                <input type="email" id="form3Example3c" className="form-control" />
-                                                <label className="form-label" for="form3Example3c">Your Email</label>
-                                            </div>
-                                        </div>
-                                        <div className="d-flex flex-row align-items-center mb-4">
-                                            <i className="fas fa-lock fa-lg me-3 fa-fw"></i>
-                                            <div data-mdb-input-init className="form-outline flex-fill mb-0">
-                                                <input type="password" id="form3Example4c" className="form-control" />
-                                                <label className="form-label" for="form3Example4c">Password</label>
-                                            </div>
-                                        </div>
-                                        <div className="d-flex flex-row align-items-center mb-4">
-                                            <i className="fas fa-key fa-lg me-3 fa-fw"></i>
-                                            <div data-mdb-input-init className="form-outline flex-fill mb-0">
-                                                <input type="text" id="form3Example4cd" className="form-control" />
-                                                <label className="form-label" for="form3Example4cd">Your Phone</label>
-                                            </div>
-                                        </div>
-                                        
-                                        <div className="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-                                            <button type="button" data-mdb-button-init data-mdb-ripple-init className="btn text-blue-600 btn-lg">Register</button>
-                                        </div>
-                                    </form>
-                                </div>
-                                <div className="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
-                                    <img src={crat2} className="img-fluid" alt="Sample image"/>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+<div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+    <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+        <img class="mx-auto h-10 w-auto" src={crat2} alt="Your Company"/>
+        <h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Crete your account</h2>
+    </div>
+
+    <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+        <form class="space-y-6" action="#" method="POST">
+            <div>
+                <label for="name" class="block text-sm font-medium leading-6 text-gray-900">User Name</label>
+                <div class="mt-2">
+                    <input id="name" name="name" type="name" autocomplete="name" placeholder='User_Name' class="block w-full rounded-md border-2 p-2 text-gray-950 font-2xl shadow-sm placeholder:text-gray-500 sm:text-sm"/>
                 </div>
             </div>
-        </div>
-    </section>
+            <div>
+                <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Email</label>
+                <div class="mt-2">
+                    <input id="email" name="email" type="email" autocomplete="email" placeholder='Email' class="block w-full rounded-md border-2 p-2 text-gray-950 font-2xl shadow-sm placeholder:text-gray-500 sm:text-sm"/>
+                </div>
+            </div>
+            <div>
+                <label for="phone" class="block text-sm font-medium leading-6 text-gray-900">phone</label>
+                <div class="mt-2">
+                    <input id="phone" phone="phone" type="tel" autocomplete="phone" placeholder='Phone Number' class="block w-full rounded-md border-2 p-2 text-gray-950 font-2xl shadow-sm placeholder:text-gray-500 sm:text-sm"/>
+                </div>
+            </div>
+            <div>
+                <div class="flex items-center justify-between">
+                    <label for="password" class="block text-sm font-medium leading-6 text-gray-900">Password</label>
+          {/* <div class="text-sm">
+            <a href="#" class="font-semibold text-indigo-600 hover:text-indigo-500">Forgot password?</a>
+          </div> */}
+                </div>
+                <div class="mt-2">
+                    <input id="password" name="password" type="password" placeholder='Password' class="block w-full rounded-md border-2 p-2 text-gray-950 font-2xl shadow-sm placeholder:text-gray-500 sm:text-sm "/>
+                </div>
+            </div>
+
+            <div>
+                <button type="submit" class="flex w-full justify-center rounded-md bg-[#398378] px-3 py-2 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#31C48D] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Sign up</button>
+            </div>
+        </form>
+
+        <p class="mt-10 text-center text-sm text-gray-500">
+            I am a member?
+            <a href="#" class="font-semibold leading-6 text-[#398378] hover:text-[#31C48D]">Login</a>
+        </p>
+    </div>
+</div>
     </>
 }
