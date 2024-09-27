@@ -1,0 +1,46 @@
+/* Basic Navbar Styling */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #31C48D; /* Primary color from BrandBoard */
+    position: sticky;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+  }
+  
+  .navbar a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 18px;
+    padding: 10px 20px;
+  }
+  
+  .navbar-logo a {
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  .navbar-links a:hover {
+    background-color: #ADBFB8; /* Secondary color from BrandBoard */
+    border-radius: 5px;
+  }
+  
+  /* Responsive Navbar */
+  @media (max-width: 768px) {
+    .navbar {
+      flex-direction: column;
+    }
+  
+    .navbar-links {
+      margin-top: 10px;
+    }
+  
+    .navbar-links a {
+      display: block;
+      padding: 10px 0;
+    }
+  }
+  
