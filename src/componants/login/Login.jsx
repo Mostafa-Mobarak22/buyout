@@ -3,6 +3,7 @@ import {useFormik} from 'formik'
 import crat2 from '../../assets/logo-no-background.png'
 import * as Yup from 'yup'
 import axios from 'axios'
+import { Link, NavLink } from 'react-router-dom'
 export default function Register() {
 
     const [errMsg , setErrMsg] = useState('')
@@ -36,7 +37,7 @@ return <>
             <div>
                 <label htmlFor="name" className="block text-sm font-medium leading-6     text-gray-900">User Name</label>
                 <div className="mt-2">
-                    <input onBlur={handleBlur} onChange={handleChange} id="name" value={values.user_name} name="user_name" type="name" autoComplete="name" placeholder='User_Name' className="block w-full rounded-md border-2 p-2 text-gray-950 font-2xl shadow-sm placeholder:text-gray-500 sm:text-sm"/>
+                    <input onBlur={handleBlur} onChange={handleChange} id="name" value={values.user_name} name="user_name" type="name" autoComplete="name" placeholder='User_Name' className="block w-full bg-white rounded-md border-2 p-2 text-gray-950 font-2xl shadow-sm placeholder:text-gray-500 sm:text-sm"/>
                     {touched.user_name && errors.user_name && <p className='text-red-500'>{errors.user_name}</p>}
                 </div>
             </div>
@@ -48,7 +49,7 @@ return <>
           </div> */}
                 </div>
                 <div className="mt-2">
-                    <input onBlur={handleBlur} onChange={handleChange} id="password" value={values.password} name="password" type="password" placeholder='Password' className="block w-full rounded-md border-2 p-2 text-gray-950 font-2xl shadow-sm placeholder:text-gray-500 sm:text-sm "/>
+                    <input onBlur={handleBlur} onChange={handleChange} id="password" value={values.password} name="password" type="password" placeholder='Password' className="block w-full rounded-md border-2 p-2 text-gray-950 font-2xl bg-white shadow-sm placeholder:text-gray-500 sm:text-sm "/>
                     {touched.password && errors.password && <p className='text-red-500'>{errors.password}</p>}
                 </div>
             </div>
@@ -62,7 +63,7 @@ return <>
 
         <p className="mt-10 text-center text-sm text-gray-500">
             Not a member?
-            <a href="#" className="font-semibold leading-6 text-[#398378] hover:text-[#31C48D]">Sign up</a>
+            <NavLink to='/signup' className="font-semibold leading-6 text-[#398378] hover:text-[#31C48D]">Sign up</NavLink>
             
         </p>
     </div>

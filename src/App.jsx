@@ -20,9 +20,9 @@ function App() {
   ])
 
   return <>
-  {/* <RouterProvider router={route}></RouterProvider> */}
+  <RouterProvider router={route}></RouterProvider>
   {/* <Navbar/> */}
-  <Profile/>
+  {/* <Profile/> */}
   {/* <Loading/> */}
   {/* <Register/> */}
     </>

@@ -1,6 +1,7 @@
 import React from 'react'
 import profile from '../../assets/profile-photo.jpg'
 import logo from '../../assets/logo-no-background.png'
+import { Link } from 'react-router-dom'
 export default function Navbar() {
 return <>
 <div className="navbar bg-[#398378] px-5">
@@ -43,15 +44,12 @@ return <>
                     <img alt="Navbar component" src={profile} />
                 </div>
             </div>
-            <ul tabIndex={0} className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
-                <li>
-                    <a className="justify-between">
-                        Profile
-                        <span className="badge">New</span>
-                    </a>
+            <ul tabIndex={0} className="menu menu-sm dropdown-content bg-[#398378] rounded-box z-[1] mt-3 w-52 p-2 shadow">
+                <li className='hover:bg-[#398378] hover:shadow'>
+                    <a className="justify-between text-white font-semibold">Profile</a>
                 </li>
-                <li><a>Settings</a></li>
-                <li><a>Logout</a></li>
+                <li className="hover:bg-[#398378] hover:shadow"><a className='text-white font-semibold'>My Property</a></li>
+                <li className='hover:bg-[#398378] hover:shadow'><Link to='login' className='text-white font-semibold'>Logout</Link></li>
             </ul>
         </div>
     </div>

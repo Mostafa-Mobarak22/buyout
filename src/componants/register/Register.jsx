@@ -4,6 +4,7 @@ import {useFormik} from 'formik'
 import crat2 from '../../assets/logo-no-background.png'
 import * as Yup from 'yup'
 import axios from 'axios'
+import { Link, NavLink } from 'react-router-dom'
 export default function Register() {
 
     let { handleSubmit,values,handleChange,errors,touched,handleBlur} = useFormik({
@@ -76,7 +77,7 @@ return <>
 
         <p className="mt-10 text-center text-sm text-gray-500">
             I am a member?
-            <a href="#" className="font-semibold leading-6 text-[#398378] hover:text-[#31C48D]">Login</a>
+            <Link to='/login' className="font-semibold leading-6 text-[#398378] hover:text-[#31C48D]">Login</Link>
         </p>
     </div>
 </div>
