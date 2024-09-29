@@ -38,21 +38,21 @@ return <>
             <div>
                 <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900">User Name</label>
                 <div className="mt-2">
-                    <input onBlur={handleBlur} onChange={handleChange} id="name" value={values.user_name} name="user_name" type="name" autoComplete="name" placeholder='User_Name' className="block w-full rounded-md border-2 p-2 text-gray-950 font-2xl shadow-sm placeholder:text-gray-500 sm:text-sm"/>
+                    <input onBlur={handleBlur} onChange={handleChange} id="name" value={values.user_name} name="user_name" type="name" autoComplete="name" placeholder='User_Name' className="block w-full bg-white rounded-md border-2 p-2 text-gray-950 font-2xl shadow-sm placeholder:text-gray-500 sm:text-sm"/>
                     {touched.user_name && errors.user_name && <p className='text-red-500'>{errors.user_name}</p>}
                 </div>
             </div>
             <div>
                 <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">Email</label>
                 <div className="mt-2">
-                    <input onBlur={handleBlur} onChange={handleChange} id="email" value={values.email} name="email" type="email" autoComplete="email" placeholder='Email' className="block w-full rounded-md border-2 p-2 text-gray-950 font-2xl shadow-sm placeholder:text-gray-500 sm:text-sm"/>
+                    <input onBlur={handleBlur} onChange={handleChange} id="email" value={values.email} name="email" type="email" autoComplete="email" placeholder='Email' className="block bg-white w-full rounded-md border-2 p-2 text-gray-950 font-2xl shadow-sm placeholder:text-gray-500 sm:text-sm"/>
                     {touched.email && errors.email && <p className='text-red-500'>{errors.email}</p>}
                 </div>
             </div>
             <div>
                 <label htmlFor="phone" className="block text-sm font-medium leading-6 text-gray-900">phone</label>
                 <div className="mt-2">
-                    <input onBlur={handleBlur} onChange={handleChange} id="phone" value={values.phone} phone="phone" type="tel" autoComplete="phone" placeholder='Phone Number' className="block w-full rounded-md border-2 p-2 text-gray-950 font-2xl shadow-sm placeholder:text-gray-500 sm:text-sm"/>
+                    <input onBlur={handleBlur} onChange={handleChange} id="phone" value={values.phone} phone="phone" type="tel" autoComplete="phone" placeholder='Phone Number' className="block bg-white w-full rounded-md border-2 p-2 text-gray-950 font-2xl shadow-sm placeholder:text-gray-500 sm:text-sm"/>
                     {touched.phone && errors.phone && <p className='text-red-500'>{errors.phone}</p>}
                 </div>
             </div>
@@ -64,7 +64,7 @@ return <>
           </div> */}
                 </div>
                 <div className="mt-2">
-                    <input onBlur={handleBlur} onChange={handleChange} id="password" value={values.password} name="password" type="password" placeholder='Password' className="block w-full rounded-md border-2 p-2 text-gray-950 font-2xl shadow-sm placeholder:text-gray-500 sm:text-sm "/>
+                    <input onBlur={handleBlur} onChange={handleChange} id="password" value={values.password} name="password" type="password" placeholder='Password' className="block bg-white w-full rounded-md border-2 p-2 text-gray-950 font-2xl shadow-sm placeholder:text-gray-500 sm:text-sm "/>
                     {touched.password && errors.password && <p className='text-red-500'>{errors.password}</p>}
                 </div>
             </div>
