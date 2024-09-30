@@ -6,24 +6,28 @@ import axios from 'axios'
 import { useEffect, useState } from 'react'
 import Loading from '../loading/Loading'
 export default function Profile() {
-    const [profileData , setProfileData] = useState()
+    const [profileData , setProfileData] = useState(null)
+    const [isLoading,setIsLoading] = useState(true)
     useEffect(() => {
         getProfile()
-    },[])
+    },[profileData])
 
     async function getProfile() {
         try {
             let { data } = await axios.get("http://127.0.0.1:8000/user/get/9/");
+
             setProfileData(data);  
-            console.log(profileData);
+            console.log(profileData.image);
+            setIsLoading(false)
         } catch (error) {
+            setIsLoading(true)
             console.error("Error fetching profile data", error);
         }
     }
 
-    let { handleSubmit,values,handleChange,errors,touched,handleBlur} = useFormik({
+    let { handleSubmit,values,handleChange,errors,touched,handleBlur,setValues} = useFormik({
         initialValues:{
-            "user_name":profileData.user_name,
+            "user_name":profileData?.user_name,
             "phone":profileData?.phone,
             "email":profileData?.email,
             "city":profileData?.city,
@@ -68,16 +72,34 @@ export default function Profile() {
         console.log(data)
         console.log(values)
     }
+    useEffect(() => {
+        if (profileData) {
+            setValues({
+                "user_name": profileData.user_name || '',
+                "phone": profileData.phone || '',
+                "email": profileData.email || '',
+                "city": profileData.city || '',
+                "street": profileData.street || '',
+                "register_photo": null,
+                "another_phone": profileData.another_phone || '',
+                "image": null,
+            });
+        }
+    }, [profileData]);
 
-    // if(profileData) return <div>loading</div>
+    if(!profileData) return <div>loading</div>
 
   return <>
 
-    
-    <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
-    <div className="sm:mx-auto sm:w-full sm:max-w-sm">
+    {
+        !profileData ? <Loading /> : 
+<div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+    {/* <div className="sm:mx-auto sm:w-full sm:max-w-sm">
         <img className="mx-auto h-10 w-auto" src={crat2} alt="Your Company"/>
         <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Update your profile</h2>
+    </div> */}
+    <div className="w-20 h-20 rounded-full mx-auto hover:bg-[#31C48D] shadow-lg">
+        <img className='w-100 rounded-full' alt="Navbar component" src={"http://127.0.0.1:8000"+profileData.image} />
     </div>
 
     <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-lg">
@@ -180,6 +202,8 @@ export default function Profile() {
         </form>
     </div>
 </div>
+    
+    }
 
 </>
 }
