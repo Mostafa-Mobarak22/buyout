@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import {createBrowserRouter, RouterProvider} from 'react-router-dom'
 import './App.css'
-import '@fortawesome/fontawesome-free/css/all.min.css'
 import Register from './componants/register/Register'
 import Login from './componants/login/Login'
 import HeroSection from './componants/herosection/heroSection'
@@ -18,7 +17,7 @@ function App() {
 
   const route = createBrowserRouter([
     {path: "",element: <Layout/>,children:[
-      {path: "",element: <LandingPage/>},
+      // {path: "",element: <LandingPage/>},
       {path: "login",element: <Login/>},
       {path: "signup",element: <Register/>},
       {path: "home",element: <Home/>},
