@@ -18,6 +18,7 @@ function App() {
 
   const route = createBrowserRouter([
     {path: "",element: <Layout/>,children:[
+      {path: "",element: <LandingPage/>},
       {path: "login",element: <Login/>},
       {path: "signup",element: <Register/>},
       {path: "home",element: <Home/>},

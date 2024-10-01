@@ -1,0 +1,146 @@
+ /*.hero-section {
+  position: relative;
+  height: 100vh;
+  background-image: url('https://your-background-image-url.jpg'); /* Replace with your image */
+  /* background-size: cover; */
+  /* background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center; */
+/* } */
+/* .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+} */
+
+/* .hero-content {
+  text-align: center;
+  color: white;
+  z-index: 2;
+} */
+
+/* .hero-content h1 {
+  font-size: 48px;
+  margin-bottom: 20px;
+} */
+
+/* .search-form {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+} */
+
+/* .search-fields {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+} */
+
+/* .search-input,
+.property-type,
+.beds-baths {
+  padding: 15px;
+  border: 2px solid #31C48D;
+  border-radius: 5px;
+  font-size: 16px;
+  width: 250px;
+} */
+/* 
+.search-input {
+  width: 300px;
+} */
+
+/* .cta-button {
+  background-color: #31C48D;
+  color: white;
+  padding: 15px 30px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 18px;
+} */
+/* 
+.cta-button:hover {
+  background-color: #ADBFB8;
+} */
+/* 
+@media (max-width: 768px) {
+   .hero-content h1 {
+    font-size: 32px;
+  }
+
+  .search-input {
+    width: 200px;
+  }
+
+  .property-type, .beds-baths {
+    width: 150px;
+  }
+}   */
+.hero-section {
+    position: relative;
+    height: 100vh;
+    background-image: url('../../assets/background.jpg');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+  }
+  
+  .hero-content {
+    z-index: 2;
+    text-align: center;
+    color: rgb(63, 59, 59);
+  }
+  
+  .search-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: space-around;
+  }
+  
+  .search-input, .property-type, .bedrooms-select, .bathrooms-select {
+    padding: 15px;
+    width: 250px;
+    border: 1px solid #31C48D;
+    border-radius: 10px;
+  }
+  
+  .cta-button {
+    background-color: #31C48D;
+    color: white;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+  
+  .cta-button:hover {
+    background-color: #218838;
+    transform: translateY(-2px);
+  }
+  
+  @media (max-width: 768px) {
+    .search-form {
+      flex-direction: row;
+      gap: 10px;
+    }
+  }
+  
