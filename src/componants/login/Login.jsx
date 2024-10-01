@@ -1,13 +1,17 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import {useFormik} from 'formik'
 import crat2 from '../../assets/logo-no-background.png'
 import * as Yup from 'yup'
 import axios from 'axios'
-import { Link, NavLink } from 'react-router-dom'
+import { Link, NavLink, useNavigate } from 'react-router-dom'
+import { tokenContext } from '../../assets/context/TokenContext'
 export default function Register() {
-
+    const navigate = useNavigate()
+    const { token,setToken } = useContext(tokenContext)
+    const [isLoad,setIsLoad]=useState(false)
     const [errMsg , setErrMsg] = useState('')
     const [sucMsg , setSucMsg] = useState('')
+    const [active , setActive] = useState('')
     let { handleSubmit,values,handleChange,errors,touched,handleBlur} = useFormik({
         initialValues:{
             "user_name":"",
@@ -20,24 +24,63 @@ export default function Register() {
         })
     })
     async function register(){
-        let {data} = await axios.post("http://127.0.0.1:8000/user/login/",values)
-        setErrMsg(data.error)
-        setSucMsg(data.success)
-        console.log(errMsg)
+        setIsLoad(true)
+        setErrMsg("")
+        setSucMsg("")
+        setActive("")
+        await axios.post("http://127.0.0.1:8000/user/login/",values).then(({data})=>{
+            setErrMsg(data.error)
+            setSucMsg(data.user_name)
+            setActive(data.not_active)
+            setToken(data.token)
+            console.log(data.token)
+            console.log(data.error == true)
+            console.log(data.user_name)
+            console.log(data.not_active)
+            if(!(Boolean(data.error))){
+                if(!Boolean(data.not_active)){
+                    localStorage.setItem("user_token",data.token)
+                    navigate('/home')
+                }
+            }
+            // localStorage.setItem("user_token",data.token)
+            // console.log(localStorage.getItem("user_token"))
+            // console.log(localStorage.getItem("user_token")==false)
+            // localStorage.getItem("user_token") ? navigate('/home') : null
+            // console.log(token)
+            // if (localStorage.getItem("user_token")){
+            //     navigate("/home")
+            // }
+            // else if(localStorage.getItem("user_token") && ){
+
+            // }
+            // else{
+            //     localStorage.setItem("user_token",token)
+            //     navigate("/home")
+            // }
+            
+            // console.log(data)
+            // console.log(data.success)
+            // console.log(data.not_active)
+            // console.log(data.error)
+            setIsLoad(false)
+        }).catch((err)=>{
+        })
+
     }
 return <>
 <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
     <div className="sm:mx-auto sm:w-full sm:max-w-sm">
         <img className="mx-auto h-10 w-auto" src={crat2} alt="Your Company"/>
-        <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Create your account</h2>
+        <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-[#398378]">Login to your account</h2>
     </div>
 
     <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
         <form className="space-y-6" onSubmit={handleSubmit}>
             <div>
-                <label htmlFor="name" className="block text-sm font-medium leading-6     text-gray-900">User Name</label>
+                <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900">User Name</label>
                 <div className="mt-2">
-                    <input onBlur={handleBlur} onChange={handleChange} id="name" value={values.user_name} name="user_name" type="name" autoComplete="name" placeholder='User_Name' className="block w-full bg-white rounded-md border-2 p-2 text-gray-950 font-2xl shadow-sm placeholder:text-gray-500 sm:text-sm"/>
+                    <input onBlur={handleBlur} onChange={handleChange} id="name" value={values.user_name} name="user_name" type="name" autoComplete="name" placeholder='User_Name' className="block focus:outline-[#398378] w-full rounded-md border-2 p-2 text-gray-950 font-2xl bg-white shadow-sm placeholder:text-gray-500 sm:text-sm"/>
                     {touched.user_name && errors.user_name && <p className='text-red-500'>{errors.user_name}</p>}
                 </div>
             </div>
@@ -49,14 +92,15 @@ return <>
           </div> */}
                 </div>
                 <div className="mt-2">
-                    <input onBlur={handleBlur} onChange={handleChange} id="password" value={values.password} name="password" type="password" placeholder='Password' className="block w-full rounded-md border-2 p-2 text-gray-950 font-2xl bg-white shadow-sm placeholder:text-gray-500 sm:text-sm "/>
+                    <input onBlur={handleBlur} onChange={handleChange} id="password" value={values.password} name="password" type="password" placeholder='Password' className="block focus:outline-[#398378] w-full rounded-md border-2 p-2 text-gray-950 font-2xl bg-white shadow-sm placeholder:text-gray-500 sm:text-sm "/>
                     {touched.password && errors.password && <p className='text-red-500'>{errors.password}</p>}
                 </div>
             </div>
 
             <div>
-                <button type="submit" className="flex w-full justify-center rounded-md bg-[#398378] px-3 py-2 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#31C48D] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Login</button>
-                {errMsg && <p className='text-red-500 text-center'>{errMsg}</p>}
+                <button type="submit" className="flex w-full justify-center rounded-md bg-[#398378] px-3 py-2 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#31C48D] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2" disabled={isLoad}>Login {isLoad &&<i className='absolute right-0 fas fa-spinner fa-spin me-3 text-xl'></i>}</button>
+                {errMsg && <p className='text-red-500 text-center py-2'>{errMsg}</p>}
+                {active && <p className='text-red-500 text-center py-2'>{active}</p>}
                 {sucMsg && <p className='text-emerald-500 text-center py-2'>Welcom {sucMsg}</p>}
             </div>
         </form>

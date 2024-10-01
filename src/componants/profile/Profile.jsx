@@ -10,24 +10,31 @@ export default function Profile() {
     const [isLoading,setIsLoading] = useState(true)
     useEffect(() => {
         getProfile()
-    },[profileData])
+    },[])
 
     async function getProfile() {
         try {
-            let { data } = await axios.get("http://127.0.0.1:8000/user/get/9/");
-
-            setProfileData(data);  
-            console.log(profileData.image);
-            setIsLoading(false)
+            await axios.get("http://127.0.0.1:8000/user/get/9/").then((data)=>{
+                setProfileData(data.data);  
+                console.log(profileData);
+                setIsLoading(false)
+            })
         } catch (error) {
             setIsLoading(true)
             console.error("Error fetching profile data", error);
         }
     }
+    useEffect(() => {
+        if (profileData) {
+            console.log('Profile Data Updated:', profileData);
+            setProfileData(profileData)
+            console.log(profileData) // This will log the updated profile data
+        }
+    }, [profileData]);
 
     let { handleSubmit,values,handleChange,errors,touched,handleBlur,setValues} = useFormik({
         initialValues:{
-            "user_name":profileData?.user_name,
+            "user_name":"profileData.user_name",
             "phone":profileData?.phone,
             "email":profileData?.email,
             "city":profileData?.city,
@@ -85,9 +92,8 @@ export default function Profile() {
                 "image": null,
             });
         }
-    }, [profileData]);
+    }, []);
 
-    if(!profileData) return <div>loading</div>
 
   return <>
 
@@ -108,14 +114,14 @@ export default function Profile() {
                 <div className='flex-auto'>
                     <label htmlFor="user_name" className="block text-sm font-medium leading-6 text-gray-900">User Name</label>
                     <div className="mt-2">
-                        <input onBlur={handleBlur} onChange={handleChange} id="user_name" value={values.user_name} name="user_name" type="text" autoComplete="user_name" placeholder='User_Name' className="block w-full rounded-md border-2 p-2 text-gray-950 font-2xl shadow-sm placeholder:text-gray-500 sm:text-sm bg-white"/>
-                        {touched.user_name && errors.user_name && <p className='text-red-500'>{errors.user_name}</p>}
+                        <input onBlur={handleBlur} onChange={handleChange} id="user_name" value={profileData.user_name} name="user_name" type="text" autoComplete="user_name" placeholder='User_Name' className="block w-full focus:outline-[#398378] rounded-md border-2 p-2 text-gray-950 font-2xl shadow-sm placeholder:text-gray-500 sm:text-sm bg-white"/>
+                        {touched.user_name && errors.user_name && <p className='text-red-500'>{profileData.user_name}</p>}
                     </div>
                 </div>
                 <div className='flex-auto'>
                     <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">Email</label>
                     <div className="mt-2">
-                        <input onBlur={handleBlur} onChange={handleChange} id="email" value={values.email} name="email" type="email" autoComplete="email" placeholder='Email' className="block w-full rounded-md border-2 p-2 text-gray-950 bg-white font-2xl shadow-sm placeholder:text-gray-500 sm:text-sm"/>
+                        <input onBlur={handleBlur} onChange={handleChange} id="email" value={profileData.email} name="email" type="email" autoComplete="email" placeholder='Email' className="block w-full focus:outline-[#398378] rounded-md border-2 p-2 text-gray-950 bg-white font-2xl shadow-sm placeholder:text-gray-500 sm:text-sm"/>
                         {touched.email && errors.email && <p className='text-red-500'>{errors.email}</p>}
                     </div>
                 </div>
@@ -131,7 +137,7 @@ export default function Profile() {
                             <div className="mt-4 flex text-sm leading-6 text-gray-600">
                                 <label htmlFor="image" className="relative cursor-pointer rounded-md bg-white font-semibold text-[#398378]  focus-within:outline-none focus-within:ring-2 focus-within:ring-[#31C48D] focus-within:ring-offset-2 hover:text-[#31C48D]">
                                     <span>Upload a file</span>
-                                    <input onBlur={handleBlur}  accept="image/png, image/jpeg, image/gif, image/jpg, image/webp" onChange={handleChange} id="image" name="image" type="file" className="sr-only"/>
+                                    <input onBlur={handleBlur}  accept="image/png, image/jpeg, image/gif, image/jpg, image/webp" onChange={handleChange} id="image" name="image" type="file" className="sr-only focus:outline-[#398378]"/>
                                     <span>{values.image?.name}</span>
                                 </label>
                                 {touched.image && errors.image && <p className='text-red-500'>{errors.image}</p>}
@@ -146,14 +152,14 @@ export default function Profile() {
                 <div className='flex-auto'>
                     <label htmlFor="city" className="block text-sm font-medium leading-6 text-gray-900">City</label>
                     <div className="mt-2">
-                        <input onBlur={handleBlur} onChange={handleChange} id="city" value={values.city} name='city'  type="text" autoComplete="city" placeholder='City' className="block w-full rounded-md border-2 p-2 text-gray-950 font-2xl shadow-sm placeholder:text-gray-500 sm:text-sm bg-white"/>
+                        <input onBlur={handleBlur} onChange={handleChange} id="city" value={profileData.city} name='city'  type="text" autoComplete="city" placeholder='City' className="block w-full focus:outline-[#398378] rounded-md border-2 p-2 text-gray-950 font-2xl shadow-sm placeholder:text-gray-500 sm:text-sm bg-white"/>
                         {touched.city && errors.city && <p className='text-red-500'>{errors.city}</p>}
                     </div>
                 </div>
                 <div className='flex-auto'>
                     <label htmlFor="street" className="block text-sm font-medium leading-6 text-gray-900">Street</label>
                     <div className="mt-2">
-                        <input onBlur={handleBlur} onChange={handleChange} id="street" name='street' value={values.street}  type="text" autoComplete="street" placeholder='Street' className="block w-full bg-white rounded-md border-2 p-2 text-gray-950 font-2xl shadow-sm placeholder:text-gray-500 sm:text-sm"/>
+                        <input onBlur={handleBlur} onChange={handleChange} id="street" name='street' value={profileData.street}  type="text" autoComplete="street" placeholder='Street' className="block w-full focus:outline-[#398378] bg-white rounded-md border-2 p-2 text-gray-950 font-2xl shadow-sm placeholder:text-gray-500 sm:text-sm"/>
                         {touched.street && errors.street && <p className='text-red-500'>{errors.street}</p>}
                     </div>
                 </div>
@@ -162,14 +168,14 @@ export default function Profile() {
                 <div className='flex-auto'>
                     <label htmlFor="phone" className="block text-sm font-medium leading-6 text-gray-900">phone</label>
                     <div className="mt-2">
-                        <input onBlur={handleBlur} onChange={handleChange} id="phone" value={values.phone} name="phone" type="tel" autoComplete="phone" placeholder='Phone Number' className="block w-full rounded-md border-2 p-2 text-gray-950 font-2xl bg-white shadow-sm placeholder:text-gray-500 sm:text-sm"/>
+                        <input onBlur={handleBlur} onChange={handleChange} id="phone" value={profileData.phone} name="phone" type="tel" autoComplete="phone" placeholder='Phone Number' className="block w-full focus:outline-[#398378] rounded-md border-2 p-2 text-gray-950 font-2xl bg-white shadow-sm placeholder:text-gray-500 sm:text-sm"/>
                         {touched.phone && errors.phone && <p className='text-red-500'>{errors.phone}</p>}
                     </div>
                 </div>
                 <div className='flex-auto'>
                     <label htmlFor="another_phone" className="block text-sm font-medium leading-6 text-gray-900">Another Phone Number</label>
                     <div className="mt-2">
-                        <input onBlur={handleBlur} onChange={handleChange} id="another_phone" name='another_phone' value={values.another_phone}  type="tel" autoComplete="another_phone" placeholder='Another Phone Number' className="block w-full rounded-md border-2 bg-white p-2 text-gray-950 font-2xl shadow-sm placeholder:text-gray-500 sm:text-sm"/>
+                        <input onBlur={handleBlur} onChange={handleChange} id="another_phone" name='another_phone' value={profileData.another_phone}  type="tel" autoComplete="another_phone" placeholder='Another Phone Number' className="block w-full focus:outline-[#398378] rounded-md border-2 bg-white p-2 text-gray-950 font-2xl shadow-sm placeholder:text-gray-500 sm:text-sm"/>
                         {touched.another_phone && errors.another_phone && <p className='text-red-500'>{errors.another_phone}</p>}
                     </div>
                 </div>
@@ -185,7 +191,7 @@ export default function Profile() {
                             <div className="mt-4 flex text-sm leading-6 text-gray-600">
                                 <label htmlFor="register_photo" className="relative cursor-pointer rounded-md bg-white font-semibold text-[#398378]  focus-within:outline-none focus-within:ring-2 focus-within:ring-[#31C48D] focus-within:ring-offset-2 hover:text-[#31C48D]">
                                     <span>Upload a file</span>
-                                    <input onBlur={handleBlur} accept="image/png, image/jpeg, image/gif, image/jpg, image/webp" onChange={handleChange} id="register_photo" name="register_photo" type="file" className="sr-only"/>
+                                    <input onBlur={handleBlur} accept="image/png, image/jpeg, image/gif, image/jpg, image/webp" onChange={handleChange} id="register_photo" name="register_photo" type="file" className="sr-only focus:outline-[#398378]"/>
                                     <span>{values.register_photo?.name}</span>
                                 </label>
                                 {touched.register_photo && errors.register_photo && <p className='text-red-500'>{errors.register_photo}</p>}
