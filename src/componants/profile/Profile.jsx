@@ -14,7 +14,7 @@ export default function Profile() {
 
     async function getProfile() {
         try {
-            await axios.get("http://127.0.0.1:8000/user/get/9/").then((data)=>{
+            await axios.get("http://127.0.0.1:8000/user/get/1/").then((data)=>{
                 setProfileData(data.data);  
                 console.log(profileData);
                 setIsLoading(false)

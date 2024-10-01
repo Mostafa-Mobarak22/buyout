@@ -11,13 +11,14 @@ import Loading from './componants/loading/Loading'
 import AddPropertyForm from './componants/addproperty/addproperty'
 import Home from './componants/home/Home'
 import TokenContext from './assets/context/TokenContext'
+import LandingPage from './pages/landin_page/landing_page'
 
 function App() {
   const [count, setCount] = useState(0)
 
   const route = createBrowserRouter([
     {path: "",element: <Layout/>,children:[
-      // {path: "",element: <LandingPage/>},
+       {path: "",element: <LandingPage/>},
       {path: "login",element: <Login/>},
       {path: "signup",element: <Register/>},
       {path: "home",element: <Home/>},
