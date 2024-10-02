@@ -5,6 +5,8 @@ import * as Yup from 'yup'
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 import Loading from '../loading/Loading'
+import { toast, Bounce, ToastContainer } from 'react-toastify'
+
 export default function Profile() {
     const [profileData , setProfileData] = useState(null)
     const [isLoading,setIsLoading] = useState(true)
@@ -68,9 +70,19 @@ export default function Profile() {
                 'Content-Type': 'multipart/form-data',
             },
         });
-        console.log(data)
-        console.log(values)
+        
         getProfile()
+        toast.success('Your Account Updated', {
+            position: "bottom-center",
+            autoClose: 2500,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+            });
     }
 return <>
 
@@ -129,14 +141,14 @@ return <>
                 <div className='flex-auto'>
                     <label htmlFor="city" className="block text-sm font-medium leading-6 text-gray-900">City</label>
                     <div className="mt-2">
-                        <input onBlur={handleBlur} onChange={handleChange} id="city" value={profileData.city} name='city'  type="text" autoComplete="city" placeholder='City' className="block w-full focus:outline-[#398378] rounded-md border-2 p-2 text-gray-950 font-2xl shadow-sm placeholder:text-gray-500 sm:text-sm bg-white"/>
+                        <input onBlur={handleBlur} onChange={handleChange} id="city" value={values.city} name='city'  type="text" autoComplete="city" placeholder='City' className="block w-full focus:outline-[#398378] rounded-md border-2 p-2 text-gray-950 font-2xl shadow-sm placeholder:text-gray-500 sm:text-sm bg-white"/>
                         {touched.city && errors.city && <p className='text-red-500'>{errors.city}</p>}
                     </div>
                 </div>
                 <div className='flex-auto'>
                     <label htmlFor="street" className="block text-sm font-medium leading-6 text-gray-900">Street</label>
                     <div className="mt-2">
-                        <input onBlur={handleBlur} onChange={handleChange} id="street" name='street' value={profileData.street}  type="text" autoComplete="street" placeholder='Street' className="block w-full focus:outline-[#398378] bg-white rounded-md border-2 p-2 text-gray-950 font-2xl shadow-sm placeholder:text-gray-500 sm:text-sm"/>
+                        <input onBlur={handleBlur} onChange={handleChange} id="street" name='street' value={values.street}  type="text" autoComplete="street" placeholder='Street' className="block w-full focus:outline-[#398378] bg-white rounded-md border-2 p-2 text-gray-950 font-2xl shadow-sm placeholder:text-gray-500 sm:text-sm"/>
                         {touched.street && errors.street && <p className='text-red-500'>{errors.street}</p>}
                     </div>
                 </div>
@@ -152,7 +164,7 @@ return <>
                 <div className='flex-auto'>
                     <label htmlFor="another_phone" className="block text-sm font-medium leading-6 text-gray-900">Another Phone Number</label>
                     <div className="mt-2">
-                        <input onBlur={handleBlur} onChange={handleChange} id="another_phone" name='another_phone' value={profileData.another_phone}  type="tel" autoComplete="another_phone" placeholder='Another Phone Number' className="block w-full focus:outline-[#398378] rounded-md border-2 bg-white p-2 text-gray-950 font-2xl shadow-sm placeholder:text-gray-500 sm:text-sm"/>
+                        <input onBlur={handleBlur} onChange={handleChange} id="another_phone" name='another_phone' value={values.another_phone}  type="tel" autoComplete="another_phone" placeholder='Another Phone Number' className="block w-full focus:outline-[#398378] rounded-md border-2 bg-white p-2 text-gray-950 font-2xl shadow-sm placeholder:text-gray-500 sm:text-sm"/>
                         {touched.another_phone && errors.another_phone && <p className='text-red-500'>{errors.another_phone}</p>}
                     </div>
                 </div>

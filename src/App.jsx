@@ -9,9 +9,11 @@ import Layout from './componants/layout/Layout'
 import Navbar from './componants/navbar/Navbar'
 import Loading from './componants/loading/Loading'
 import AddPropertyForm from './componants/addproperty/addproperty'
+import { ToastContainer } from 'react-toastify'
 import Home from './componants/home/Home'
 import TokenContext from './assets/context/TokenContext'
 import LandingPage from './pages/landin_page/landing_page'
+import Cart from './componants/cart/Cart'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -29,8 +31,9 @@ function App() {
   return <>
   <TokenContext>
     <RouterProvider router={route}></RouterProvider>
+    <ToastContainer />
   </TokenContext>
-  
+  {/* <Cart/> */}
   {/* <AddPropertyForm/> */}
   {/* <Navbar/> */}
   {/* <Profile/> */}
