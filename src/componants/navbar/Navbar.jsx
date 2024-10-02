@@ -61,8 +61,8 @@ return <>
                     <li className='hover:bg-[#398378] hover:shadow'><button  onClick={()=>logout()} className='text-white font-semibold'>Logout</button></li>              
                 </>:
                 <>
-                    <li className='hover:bg-[#398378] hover:shadow'><Link to='login' className='text-white font-semibold text-decoration-none'>Login</Link></li>
-                    <li className='hover:bg-[#398378] hover:shadow'><Link to='signup' className='text-white font-semibold text-decoration-none'>Signin</Link></li>
+                    <li className='hover:bg-[#398378] hover:shadow'><Link to='login' className='text-white font-semibold text-decoration-none'>Log in</Link></li>
+                    <li className='hover:bg-[#398378] hover:shadow'><Link to='signup' className='text-white font-semibold text-decoration-none'>Sign up</Link></li>
                     
                 </>}
             </ul>

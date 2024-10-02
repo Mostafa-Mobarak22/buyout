@@ -14,9 +14,9 @@ export default function Profile() {
 
     async function getProfile() {
         try {
-            await axios.get("http://127.0.0.1:8000/user/get/1/").then((data)=>{
+            await axios.get("http://127.0.0.1:8000/user/get/26/", {
+            }).then((data)=>{
                 setProfileData(data.data);  
-                console.log(profileData);
                 setIsLoading(false)
             })
         } catch (error) {
@@ -24,17 +24,9 @@ export default function Profile() {
             console.error("Error fetching profile data", error);
         }
     }
-    useEffect(() => {
-        if (profileData) {
-            console.log('Profile Data Updated:', profileData);
-            setProfileData(profileData)
-            console.log(profileData) // This will log the updated profile data
-        }
-    }, [profileData]);
-
     let { handleSubmit,values,handleChange,errors,touched,handleBlur,setValues} = useFormik({
         initialValues:{
-            "user_name":"profileData.user_name",
+            "user_name":profileData?.user_name,
             "phone":profileData?.phone,
             "email":profileData?.email,
             "city":profileData?.city,
@@ -43,6 +35,7 @@ export default function Profile() {
             "another_phone":profileData?.another_phone,
             "image":profileData?.image,
         },
+        enableReinitialize: true,
         onSubmit: editProfile,
         validationSchema:Yup.object({
             user_name:Yup.string().required("User_Name is required").min(5,"User_Name must be more than 5 character").max(25,"Name must be less than 25 character"),
@@ -70,32 +63,16 @@ export default function Profile() {
     async function editProfile(){
         values.image = document.getElementById("image").files[0]
         values.register_photo = document.getElementById("register_photo").files[0]
-        let {data} = await axios.patch("http://127.0.0.1:8000/user/9/",values, {
+        let {data} = await axios.patch("http://127.0.0.1:8000/user/26/",values, {
             headers: {
                 'Content-Type': 'multipart/form-data',
             },
         });
-        
         console.log(data)
         console.log(values)
+        getProfile()
     }
-    useEffect(() => {
-        if (profileData) {
-            setValues({
-                "user_name": profileData.user_name || '',
-                "phone": profileData.phone || '',
-                "email": profileData.email || '',
-                "city": profileData.city || '',
-                "street": profileData.street || '',
-                "register_photo": null,
-                "another_phone": profileData.another_phone || '',
-                "image": null,
-            });
-        }
-    }, []);
-
-
-  return <>
+return <>
 
     {
         !profileData ? <Loading /> : 
@@ -114,14 +91,14 @@ export default function Profile() {
                 <div className='flex-auto'>
                     <label htmlFor="user_name" className="block text-sm font-medium leading-6 text-gray-900">User Name</label>
                     <div className="mt-2">
-                        <input onBlur={handleBlur} onChange={handleChange} id="user_name" value={profileData.user_name} name="user_name" type="text" autoComplete="user_name" placeholder='User_Name' className="block w-full focus:outline-[#398378] rounded-md border-2 p-2 text-gray-950 font-2xl shadow-sm placeholder:text-gray-500 sm:text-sm bg-white"/>
-                        {touched.user_name && errors.user_name && <p className='text-red-500'>{profileData.user_name}</p>}
+                        <input onBlur={handleBlur} onChange={handleChange} id="user_name" value={values.user_name} name="user_name" type="text" autoComplete="user_name" placeholder={profileData.user_name} className="block w-full focus:outline-[#398378] rounded-md border-2 p-2 text-gray-950 font-2xl shadow-sm placeholder:text-gray-500 sm:text-sm bg-white"/>
+                        {touched.user_name && errors.user_name && <p className='text-red-500'>{errors.user_name}</p>}
                     </div>
                 </div>
                 <div className='flex-auto'>
                     <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">Email</label>
                     <div className="mt-2">
-                        <input onBlur={handleBlur} onChange={handleChange} id="email" value={profileData.email} name="email" type="email" autoComplete="email" placeholder='Email' className="block w-full focus:outline-[#398378] rounded-md border-2 p-2 text-gray-950 bg-white font-2xl shadow-sm placeholder:text-gray-500 sm:text-sm"/>
+                        <input onBlur={handleBlur} onChange={handleChange} id="email" value={values.email} name="email" type="email" autoComplete="email" placeholder='Email' className="block w-full focus:outline-[#398378] rounded-md border-2 p-2 text-gray-950 bg-white font-2xl shadow-sm placeholder:text-gray-500 sm:text-sm"/>
                         {touched.email && errors.email && <p className='text-red-500'>{errors.email}</p>}
                     </div>
                 </div>
@@ -168,7 +145,7 @@ export default function Profile() {
                 <div className='flex-auto'>
                     <label htmlFor="phone" className="block text-sm font-medium leading-6 text-gray-900">phone</label>
                     <div className="mt-2">
-                        <input onBlur={handleBlur} onChange={handleChange} id="phone" value={profileData.phone} name="phone" type="tel" autoComplete="phone" placeholder='Phone Number' className="block w-full focus:outline-[#398378] rounded-md border-2 p-2 text-gray-950 font-2xl bg-white shadow-sm placeholder:text-gray-500 sm:text-sm"/>
+                        <input onBlur={handleBlur} onChange={handleChange} id="phone" value={values.phone} name="phone" type="tel" autoComplete="phone" placeholder='Phone Number' className="block w-full focus:outline-[#398378] rounded-md border-2 p-2 text-gray-950 font-2xl bg-white shadow-sm placeholder:text-gray-500 sm:text-sm"/>
                         {touched.phone && errors.phone && <p className='text-red-500'>{errors.phone}</p>}
                     </div>
                 </div>
