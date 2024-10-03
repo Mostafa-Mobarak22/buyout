@@ -43,26 +43,6 @@ export default function Register() {
                     navigate('/home')
                 }
             }
-            // localStorage.setItem("user_token",data.token)
-            // console.log(localStorage.getItem("user_token"))
-            // console.log(localStorage.getItem("user_token")==false)
-            // localStorage.getItem("user_token") ? navigate('/home') : null
-            // console.log(token)
-            // if (localStorage.getItem("user_token")){
-            //     navigate("/home")
-            // }
-            // else if(localStorage.getItem("user_token") && ){
-
-            // }
-            // else{
-            //     localStorage.setItem("user_token",token)
-            //     navigate("/home")
-            // }
-            
-            // console.log(data)
-            // console.log(data.success)
-            // console.log(data.not_active)
-            // console.log(data.error)
             setIsLoad(false)
         }).catch((err)=>{
         })
@@ -114,4 +94,3 @@ return <>
 </div>
     </>
 }
-
