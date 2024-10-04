@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import profile from '../../assets/profile-photo.jpg'
-// import area from '../../assets/area.png'
-import Slider from "react-slick";
+import area from '../../assets/area.png'
+import area1 from '../../assets/profile-photo.jpg'
+import Slider from "react-slick"
 import * as Yup from 'yup'
 import axios from 'axios'
 import {useFormik} from 'formik'
@@ -41,8 +42,8 @@ return <>
     <div className="rounded-xl overflow-hidden rounded-b-none bg-blue-gray-500 bg-clip-border text-white shadow-md shadow-blue-gray-500/40">
                 <Slider {...settings}>
                     {
-                        [1,1,1,1,1,].map((e)=>{
-                            return <img className='' src="https://images.unsplash.com/photo-1499696010180-025ef6e1a8f9?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1470&amp;q=80"alt="ui/ux review check"/>
+                        [1,1,1,1,1].map((e)=>{
+                            return <img className='w-100' src={area1} alt="ui/ux review check"/>
                         })
                     }
                 </Slider>

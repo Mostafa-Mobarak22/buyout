@@ -35,6 +35,8 @@ export default function EditUser() {
             "register_photo":profileData?.register_photo,
             "another_phone":profileData?.another_phone,
             "image":profileData?.image,
+            "is_active":profileData?.is_active,
+            "is_company":profileData?.is_company,
         },
         enableReinitialize: true,
         onSubmit: editProfile,
@@ -190,23 +192,43 @@ return <>
                     </div>
                 </div>
             </div>
-            <div className='flex gap-3'>
-                <input type="checkbox" id='active' name='is_active' class="text-blue-500 border-gray-300 rounded dark:bg-gray-900 dark:ring-offset-gray-900 dark:border-gray-700"></input>
-                <label htmlFor="active" className="block text-sm font-medium leading-6 text-gray-900">Account Active</label>
+            <main class="grid  place-items-center py-2">
+                <span className="block text-sm font-medium leading-6  pb-1 text-gray-900">Activation</span>
+                <div class="grid  grid-cols-2 gap-2 rounded-xl bg-gray-200 ">
+                    <div>
+                        <input type="radio" name="is_active" id="active" checked={values.is_active && values.is_active} value={values.is_active && values.is_active} class="peer hidden" />
+                        <label for="active" class="block text-sm cursor-pointer select-none rounded-xl p-2 text-center peer-checked:bg-[#398378] peer-checked:font-bold peer-checked:text-white">Active</label>
+                    </div>
 
-            </div>
-            <div className='flex gap-3'>
-                <input type="checkbox" id='company' name='is_company' class="text-blue-500 border-gray-300 rounded dark:bg-gray-900 dark:ring-offset-gray-900 dark:border-gray-700"></input>
-                <label htmlFor="company" className="block text-sm font-medium leading-6 text-gray-900">Company Account</label>
+                    <div>
+                        <input type="radio" name="is_active" id="not-active"  checked={!values.is_active && values.is_active} value={!values.is_active && values.is_active} class="peer hidden" />
+                        <label for="not-active" class="block cursor-pointer text-sm pe-3 select-none rounded-xl p-2 text-center peer-checked:bg-red-700 ps-3 peer-checked:font-bold peer-checked:text-white">Not Active</label>
+                    </div>
+                </div>
+                <span className="block text-sm font-medium leading-6 pt-4 pb-1 text-gray-900">Registeration</span>
+                <div class="grid  grid-cols-2 gap-2 rounded-xl bg-gray-200 ">
+                    
+                    <div>
+                        <input type="radio" name="is_company" id="company" value="company" class="peer hidden" />
+                        <label for="company" class="block text-sm cursor-pointer select-none rounded-xl p-is_company text-center peer-checked:bg-[#398378] peer-checked:font-bold peer-checked:text-white">Copmpany</label>
+                    </div>
 
-            </div>
+                    <div>
+                        
+                        <input type="radio" name="is_company" id="company" value="company" class="peer hidden" />
+                        <label for="company" class="block cursor-pointer text-sm pe-3 select-none rounded-xl p-2 text-center peer-checked:bg-red-700 ps-3 peer-checked:font-bold peer-checked:text-white">Not Copmpany</label>
+                    </div>
+                </div>
+            </main>
 
-            <div>
+            <div className="py-2"> 
                 <button type="submit" className="flex w-full justify-center rounded-md bg-[#398378] px-3 py-2 text-lg font-semibold leading-6 text-white shadow-sm hover:bg-[#31C48D] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Save</button>
             </div>
         </form>
+        
     </div>
 </div>
+
     
     }
 

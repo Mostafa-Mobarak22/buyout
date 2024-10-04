@@ -46,6 +46,7 @@ function App() {
   </TokenContext>
   {/* <AllUser/> */}
   {/* <Cart/> */}
+  {/* <Cart/> */}
   {/* <AddPropertyForm/> */}
   {/* <Navbar/> */}
   {/* <Profile/> */}
