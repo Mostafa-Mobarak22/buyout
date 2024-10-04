@@ -17,6 +17,7 @@ import Cart from './componants/cart/Cart'
 import AllModel from './componants/dashboard/AllModel'
 import AllUser from './componants/dashboard/user/AllUser'
 import EditUser from './componants/dashboard/user/EditUser'
+import Search from './componants/searchBar/searchBar'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -30,7 +31,9 @@ function App() {
       {path: "profile",element: <Profile/>},
       {path: "dashboard", element: <AllModel/>},
       {path: "alluser",element: <AllUser/>},
-      {path: "edituser/:id",element: <EditUser/>}
+      {path: "edituser/:id",element: <EditUser/>},
+      {path: "search",element: <Search/>},
+
     ]}
   ])
 
