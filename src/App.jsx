@@ -14,6 +14,7 @@ import Home from './componants/home/Home'
 import TokenContext from './assets/context/TokenContext'
 import LandingPage from './pages/landin_page/landing_page'
 import Cart from './componants/cart/Cart'
+import Search from './componants/searchBar/searchBar'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -25,6 +26,8 @@ function App() {
       {path: "signup",element: <Register/>},
       {path: "home",element: <Home/>},
       {path: "profile",element: <Profile/>},
+      {path: "search",element: <Search/>},
+
     ]}
   ])
 
