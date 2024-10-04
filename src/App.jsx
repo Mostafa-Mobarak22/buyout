@@ -18,6 +18,7 @@ import AllModel from './componants/dashboard/AllModel'
 import AllUser from './componants/dashboard/user/AllUser'
 import EditUser from './componants/dashboard/user/EditUser'
 import Search from './componants/searchBar/searchBar'
+import NotFound from './componants/404/NotFound'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -33,6 +34,7 @@ function App() {
       {path: "alluser",element: <AllUser/>},
       {path: "edituser/:id",element: <EditUser/>},
       {path: "search",element: <Search/>},
+      {path:"*",element: <NotFound/>}
 
     ]}
   ])
