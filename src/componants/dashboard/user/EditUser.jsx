@@ -1,22 +1,21 @@
 import React from 'react'
 import {useFormik} from 'formik'
-import crat2 from '../../assets/logo-no-background.png'
 import * as Yup from 'yup'
 import axios from 'axios'
 import { useEffect, useState } from 'react'
-import Loading from '../loading/Loading'
 import { toast, Bounce, ToastContainer } from 'react-toastify'
-
-export default function Profile() {
+import Loading from '../../loading/Loading'
+import { useParams } from 'react-router-dom'
+export default function EditUser() {
+    let {id} = useParams()
     const [profileData , setProfileData] = useState(null)
     const [isLoading,setIsLoading] = useState(true)
     useEffect(() => {
         getProfile()
     },[])
-
     async function getProfile() {
         try {
-            await axios.get("http://127.0.0.1:8000/user/get/26/", {
+            await axios.get("http://127.0.0.1:8000/user/get/"+id+"/", {
             }).then((data)=>{
                 setProfileData(data.data);  
                 setIsLoading(false)
@@ -93,7 +92,7 @@ return <>
         <img className="mx-auto h-10 w-auto" src={crat2} alt="Your Company"/>
         <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Update your profile</h2>
     </div> */}
-    <div className="w-20 h-20 rounded-full mx-auto hover:bg-[#31C48D] shadow-lg">
+    <div className="w-20 h-20 rounded-full mx-auto hover:bg-[#31C48D] shadow-lg" hidden={profileData.image ? false : true} >
         <img className='w-100 rounded-full' alt="Navbar component" src={"http://127.0.0.1:8000"+profileData.image} />
     </div>
 
@@ -191,6 +190,17 @@ return <>
                     </div>
                 </div>
             </div>
+            <div className='flex gap-3'>
+                <input type="checkbox" id='active' name='is_active' class="text-blue-500 border-gray-300 rounded dark:bg-gray-900 dark:ring-offset-gray-900 dark:border-gray-700"></input>
+                <label htmlFor="active" className="block text-sm font-medium leading-6 text-gray-900">Account Active</label>
+
+            </div>
+            <div className='flex gap-3'>
+                <input type="checkbox" id='company' name='is_company' class="text-blue-500 border-gray-300 rounded dark:bg-gray-900 dark:ring-offset-gray-900 dark:border-gray-700"></input>
+                <label htmlFor="company" className="block text-sm font-medium leading-6 text-gray-900">Company Account</label>
+
+            </div>
+
             <div>
                 <button type="submit" className="flex w-full justify-center rounded-md bg-[#398378] px-3 py-2 text-lg font-semibold leading-6 text-white shadow-sm hover:bg-[#31C48D] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Save</button>
             </div>

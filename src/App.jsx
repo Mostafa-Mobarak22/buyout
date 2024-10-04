@@ -14,17 +14,23 @@ import Home from './componants/home/Home'
 import TokenContext from './assets/context/TokenContext'
 import LandingPage from './pages/landin_page/landing_page'
 import Cart from './componants/cart/Cart'
+import AllModel from './componants/dashboard/AllModel'
+import AllUser from './componants/dashboard/user/AllUser'
+import EditUser from './componants/dashboard/user/EditUser'
 
 function App() {
   const [count, setCount] = useState(0)
 
   const route = createBrowserRouter([
-    {path: "",element: <Layout/>,children:[
-       {path: "",element: <LandingPage/>},
+      {path: "",element: <Layout/>,children:[
+      {path: "",element: <LandingPage/>},
       {path: "login",element: <Login/>},
       {path: "signup",element: <Register/>},
       {path: "home",element: <Home/>},
       {path: "profile",element: <Profile/>},
+      {path: "dashboard", element: <AllModel/>},
+      {path: "alluser",element: <AllUser/>},
+      {path: "edituser/:id",element: <EditUser/>}
     ]}
   ])
 
@@ -33,6 +39,7 @@ function App() {
     <RouterProvider router={route}></RouterProvider>
     <ToastContainer />
   </TokenContext>
+  {/* <AllUser/> */}
   {/* <Cart/> */}
   {/* <AddPropertyForm/> */}
   {/* <Navbar/> */}
