@@ -1,0 +1,154 @@
+.service-card .card-icon {
+  background-color: var(--gainsboro);
+  border-radius: var(--radius-4);
+  padding: 20px;
+  margin-bottom: 15px;
+  transition: var(--transition);
+}
+
+.service-card .card-icon:hover {
+  background-color: var(--sea-green);
+  color: var(--white);
+}
+
+.service-card .card-title {
+  font-size: var(--fs-4);
+  font-weight: var(--fw-600);
+  color: var(--oxford-blue);
+}
+
+.service-card .card-text {
+  color: var(--cadet-gray);
+  line-height: 1.5;
+}
+
+/*-----------------------------------*\
+#TESTIMONIALS
+\*-----------------------------------*/
+
+.testimonials {
+  padding-block: 60px;
+  background-color: var(--light-gray);
+}
+
+.testimonial-card {
+  background-color: var(--white);
+  border-radius: var(--radius-12);
+  padding: 20px;
+  box-shadow: var(--shadow-3);
+  text-align: center;
+}
+
+.testimonial-card .quote-icon {
+  font-size: 2rem;
+  color: var(--green-pigment);
+  margin-bottom: 10px;
+}
+
+.testimonial-card .testimonial-text {
+  color: var(--manatee);
+  line-height: 1.6;
+  font-style: italic;
+}
+
+.testimonial-card .testimonial-author {
+  margin-top: 15px;
+  font-weight: var(--fw-600);
+  color: var(--oxford-blue);
+}
+
+/*-----------------------------------*\
+#FOOTER
+\*-----------------------------------*/
+
+.footer {
+  padding: 40px 0;
+  background-color: var(--oxford-blue);
+  color: var(--white);
+  text-align: center;
+}
+
+.footer .footer-title {
+  font-size: var(--fs-3);
+  font-weight: var(--fw-500);
+  margin-bottom: 15px;
+}
+
+.footer .footer-text {
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.footer .social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.footer .social-icon {
+  font-size: 1.5rem;
+  color: var(--white);
+  transition: var(--transition);
+}
+
+.footer .social-icon:hover {
+  color: var(--green-pigment);
+}
+
+/*-----------------------------------*\
+#MEDIA QUERIES
+\*-----------------------------------*/
+
+@media (max-width: 768px) {
+  .header > .container {
+      flex-direction: column;
+  }
+
+  .hero-title {
+      font-size: var(--fs-2);
+  }
+
+  .btn {
+      padding: 10px 20px;
+  }
+}
+
+@media (max-width: 576px) {
+  .h1 {
+      font-size: var(--fs-1);
+  }
+
+  .section-title {
+      font-size: var(--fs-3);
+  }
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.contact-form input, .contact-form textarea {
+  padding: 10px;
+  border: 1px solid var(--cadet-gray);
+  border-radius: var(--radius-4);
+  font-size: var(--fs-4);
+}
+
+.contact-form button {
+  align-self: flex-start;
+}
+.btn {
+  background-color: var(--light-blue); /* Change this to your desired background color */
+  color: var(--white); /* Text color */
+  border: none; /* Remove border */
+  padding: 10px 20px; /* Adjust padding for better appearance */
+  border-radius: var(--radius-4); /* Consistent border radius */
+  cursor: pointer; /* Pointer cursor for clickable button */
+  transition: background-color 0.3s; /* Smooth transition on hover */
+}
+
+.btn:hover {
+  background-color: var(--sea-green); /* Change to the color you want on hover */
+}

@@ -91,7 +91,7 @@ return <>
                 data-tooltip-target="money"
                 className="pe-1 text-black transition-colors"
             >
-                <img src={area} className='inline pe-2' alt="" />
+                {/* <img src={area} className='inline pe-2' alt="" /> */}
                 200 Sq.M. 
             </span>
             <span className="grow ">
