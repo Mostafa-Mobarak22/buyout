@@ -7,7 +7,7 @@ import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { tokenContext } from '../../assets/context/TokenContext'
 export default function Register() {
     const navigate = useNavigate()
-    const { token,setToken } = useContext(tokenContext)
+    const { token,setToken,id,setId } = useContext(tokenContext)
     const [isLoad,setIsLoad]=useState(false)
     const [errMsg , setErrMsg] = useState('')
     const [sucMsg , setSucMsg] = useState('')
@@ -29,18 +29,20 @@ export default function Register() {
         setSucMsg("")
         setActive("")
         await axios.post("http://127.0.0.1:8000/user/login/",values).then(({data})=>{
+            console.log(data)
             setErrMsg(data.error)
             setSucMsg(data.user_name)
             setActive(data.not_active)
             setToken(data.token)
-            console.log(data.token)
-            console.log(data.error == true)
-            console.log(data.user_name)
-            console.log(data.not_active)
+            setId(data.id)
+            console.log(data)
             if(!(Boolean(data.error))){
                 if(!Boolean(data.not_active)){
                     localStorage.setItem("user_token",data.token)
-                    navigate('/home')
+                    localStorage.setItem("user_id",data.id)
+
+                    console.log(localStorage.getItem("user_id"))
+                    navigate('/home/'+data.id)
                 }
             }
             setIsLoad(false)

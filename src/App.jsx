@@ -28,12 +28,13 @@ function App() {
       {path: "",element: <LandingPage/>},
       {path: "login",element: <Login/>},
       {path: "signup",element: <Register/>},
-      {path: "home",element: <Home/>},
-      {path: "profile",element: <Profile/>},
+      {path: "home/:id",element: <Home/>},
+      {path: "profile/:id",element: <Profile/>},
       {path: "dashboard", element: <AllModel/>},
       {path: "alluser",element: <AllUser/>},
       {path: "edituser/:id",element: <EditUser/>},
       {path: "search",element: <Search/>},
+      {path: "addproperty/:id",element: <AddPropertyForm/>},
       {path:"*",element: <NotFound/>}
 
     ]}

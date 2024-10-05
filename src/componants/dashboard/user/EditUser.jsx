@@ -10,6 +10,8 @@ export default function EditUser() {
     let {id} = useParams()
     const [profileData , setProfileData] = useState(null)
     const [isLoading,setIsLoading] = useState(true)
+    const [isActive,setIsActive] = useState(null)
+    // const [isCompany,setIsCompany] = useState(null)
     useEffect(() => {
         getProfile()
     },[])
@@ -17,7 +19,20 @@ export default function EditUser() {
         try {
             await axios.get("http://127.0.0.1:8000/user/get/"+id+"/", {
             }).then((data)=>{
-                setProfileData(data.data);  
+                console.log(data.data);
+                console.log(typeof data.data.is_active)
+                setProfileData(data.data);
+                // setIsActive(data.data.is_active)
+                let active = data.data.is_active
+                console.log(active)
+                // let company = data.data.is_company
+                // console.log(company)
+                console.log(data.data.is_active)
+                // console.log(data.data.is_company)
+                setIsActive(active)
+                console.log(isActive)
+                // setIsCompany(company)
+                // console.log(isCompany)
                 setIsLoading(false)
             })
         } catch (error) {
@@ -37,6 +52,7 @@ export default function EditUser() {
             "image":profileData?.image,
             "is_active":profileData?.is_active,
             "is_company":profileData?.is_company,
+            "is_member":profileData?.is_member,
         },
         enableReinitialize: true,
         onSubmit: editProfile,
@@ -64,13 +80,36 @@ export default function EditUser() {
         })
     })
     async function editProfile(){
+        console.log(values)
         values.image = document.getElementById("image").files[0]
+        console.log(values.is_active)
+        console.log(document.querySelector('input[name="is_active"]:checked').value)
+        // console.log(values.is_company)
+        // console.log(document.querySelector('input[name="is_company"]:checked').value)
+        // if ((document.querySelector('input[name="is_active"]:checked').value === 'true')){
+        //     values.is_active = true
+        //     console.log(values.is_active)
+        // }
+        // else{
+        //     values.is_active = false
+        //     console.log(values.is_active)
+        // }
+        // if (!(document.querySelector('input[name="is_company"]:checked').value === 'true')){
+        //     values.is_company = true
+        //     console.log(values.is_company)
+        // }
+        // else{
+        //     values.is_company = false
+        //     console.log(values.is_company)
+        // }
+        // values.is_active = document.querySelector('input[name="is_active"]:checked').value === 'true'
         values.register_photo = document.getElementById("register_photo").files[0]
-        let {data} = await axios.patch("http://127.0.0.1:8000/user/26/",values, {
+        let {data} = await axios.patch("http://127.0.0.1:8000/user/"+id+"/",values, {
             headers: {
                 'Content-Type': 'multipart/form-data',
             },
         });
+        console.log(data)
         
         getProfile()
         toast.success('Your Account Updated', {
@@ -121,19 +160,7 @@ return <>
                     <label htmlFor="image" className="block text-sm font-medium leading-6 text-gray-900">Cover photo</label>
                     <div className="mt-2 flex justify-center shadow-sm rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
                         <div className="text-center">
-                            <svg className="mx-auto h-12 w-12 text-gray-300" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                                <path fillRule="evenodd" d="M1.5 6a2.25 2.25 0 012.25-2.25h16.5A2.25 2.25 0 0122.5 6v12a2.25 2.25 0 01-2.25 2.25H3.75A2.25 2.25 0 011.5 18V6zM3 16.06V18c0 .414.336.75.75.75h16.5A.75.75 0 0021 18v-1.94l-2.69-2.689a1.5 1.5 0 00-2.12 0l-.88.879.97.97a.75.75 0 11-1.06 1.06l-5.16-5.159a1.5 1.5 0 00-2.12 0L3 16.061zm10.125-7.81a1.125 1.125 0 112.25 0 1.125 1.125 0 01-2.25 0z" clipRule="evenodd" />
-                            </svg>
-                            <div className="mt-4 flex text-sm leading-6 text-gray-600">
-                                <label htmlFor="image" className="relative cursor-pointer rounded-md bg-white font-semibold text-[#398378]  focus-within:outline-none focus-within:ring-2 focus-within:ring-[#31C48D] focus-within:ring-offset-2 hover:text-[#31C48D]">
-                                    <span>Upload a file</span>
-                                    <input onBlur={handleBlur}  accept="image/png, image/jpeg, image/gif, image/jpg, image/webp" onChange={handleChange} id="image" name="image" type="file" className="sr-only focus:outline-[#398378]"/>
-                                    <span>{values.image?.name}</span>
-                                </label>
-                                {touched.image && errors.image && <p className='text-red-500'>{errors.image}</p>}
-                                <p className="pl-1">or drag and drop</p>
-                            </div>
-                            <p className="text-xs leading-5 text-gray-600">image (png,jpg,jpeg,gif,webp)</p>
+                        <img src={"http://127.0.0.1:8000"+profileData.image} alt="" />
                         </div>
                     </div>
                 </div>
@@ -175,19 +202,7 @@ return <>
                     <label htmlFor="cover-photo" className="block text-sm font-medium leading-6 text-gray-900">Image of the commercial register</label>
                     <div className="mt-2 flex justify-center shadow-sm rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
                         <div className="text-center">
-                            <svg className="mx-auto h-12 w-12 text-gray-300" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                                <path fillRule="evenodd" d="M1.5 6a2.25 2.25 0 012.25-2.25h16.5A2.25 2.25 0 0122.5 6v12a2.25 2.25 0 01-2.25 2.25H3.75A2.25 2.25 0 011.5 18V6zM3 16.06V18c0 .414.336.75.75.75h16.5A.75.75 0 0021 18v-1.94l-2.69-2.689a1.5 1.5 0 00-2.12 0l-.88.879.97.97a.75.75 0 11-1.06 1.06l-5.16-5.159a1.5 1.5 0 00-2.12 0L3 16.061zm10.125-7.81a1.125 1.125 0 112.25 0 1.125 1.125 0 01-2.25 0z" clipRule="evenodd" />
-                            </svg>
-                            <div className="mt-4 flex text-sm leading-6 text-gray-600">
-                                <label htmlFor="register_photo" className="relative cursor-pointer rounded-md bg-white font-semibold text-[#398378]  focus-within:outline-none focus-within:ring-2 focus-within:ring-[#31C48D] focus-within:ring-offset-2 hover:text-[#31C48D]">
-                                    <span>Upload a file</span>
-                                    <input onBlur={handleBlur} accept="image/png, image/jpeg, image/gif, image/jpg, image/webp" onChange={handleChange} id="register_photo" name="register_photo" type="file" className="sr-only focus:outline-[#398378]"/>
-                                    <span>{values.register_photo?.name}</span>
-                                </label>
-                                {touched.register_photo && errors.register_photo && <p className='text-red-500'>{errors.register_photo}</p>}
-                                <p className="pl-1">or drag and drop</p>
-                            </div>
-                            <p className="text-xs leading-5 text-gray-600">image (png,jpg,jpeg,gif,webp)</p>
+                            <img src={"http://127.0.0.1:8000"+profileData.register_photo} alt="" />
                         </div>
                     </div>
                 </div>
@@ -196,12 +211,15 @@ return <>
                 <span className="block text-sm font-medium leading-6  pb-1 text-gray-900">Activation</span>
                 <div class="grid  grid-cols-2 gap-2 rounded-xl bg-gray-200 ">
                     <div>
-                        <input type="radio" name="is_active" id="active" checked={values.is_active && values.is_active} value={values.is_active && values.is_active} class="peer hidden" />
+                        {/* {profileData?.is_active ? <input onBlur={handleBlur} onChange={handleChange} type="radio" name="is_active" id="active" value="true"  class="peer hidden"  checked  /> : <input onBlur={handleBlur} onChange={handleChange} type="radio" name="is_active" id="active"  value="true"  class="peer hidden" />} */}
+                        <input onBlur={handleBlur} onChange={handleChange} type="radio" name="is_active" id="active"   value="true"  class="peer hidden" />
                         <label for="active" class="block text-sm cursor-pointer select-none rounded-xl p-2 text-center peer-checked:bg-[#398378] peer-checked:font-bold peer-checked:text-white">Active</label>
+                        {profileData.is_active ? <h1>true</h1> : <h1>false</h1>}
                     </div>
 
                     <div>
-                        <input type="radio" name="is_active" id="not-active"  checked={!values.is_active && values.is_active} value={!values.is_active && values.is_active} class="peer hidden" />
+                        {/* {profileData?.is_active ?  <input onBlur={handleBlur} onChange={handleChange} type="radio" name="is_active" id="not-active" value={values.is_active}  class="peer hidden" />  :  <input onBlur={handleBlur} onChange={handleChange} type="radio" name="is_active" id="not-active" value={values.is_active}  class="peer hidden" checked/> } */}
+                        <input onBlur={handleBlur} onChange={handleChange} type="radio" name="is_active" id="not-active" value="false"  class="peer hidden" /> 
                         <label for="not-active" class="block cursor-pointer text-sm pe-3 select-none rounded-xl p-2 text-center peer-checked:bg-red-700 ps-3 peer-checked:font-bold peer-checked:text-white">Not Active</label>
                     </div>
                 </div>
@@ -209,16 +227,34 @@ return <>
                 <div class="grid  grid-cols-2 gap-2 rounded-xl bg-gray-200 ">
                     
                     <div>
-                        <input type="radio" name="is_company" id="company" value="company" class="peer hidden" />
-                        <label for="company" class="block text-sm cursor-pointer select-none rounded-xl p-is_company text-center peer-checked:bg-[#398378] peer-checked:font-bold peer-checked:text-white">Copmpany</label>
+                        {/* {profileData.is_company ? <input type="radio" onBlur={handleBlur} onChange={handleChange} name="is_company" id="company" value="true"  class="peer hidden" checked /> : <input type="radio" onBlur={handleBlur} onChange={handleChange} name="is_company" id="company" value="true"  class="peer hidden" /> } */}
+                        <input type="radio" onBlur={handleBlur} onChange={handleChange} name="is_company" id="company" value="true"  class="peer hidden" />
+                        <label for="company" class="block text-sm cursor-pointer select-none rounded-xl p-2 is_company text-center peer-checked:bg-[#398378] peer-checked:font-bold peer-checked:text-white">Company</label>
                     </div>
 
                     <div>
                         
-                        <input type="radio" name="is_company" id="company" value="company" class="peer hidden" />
-                        <label for="company" class="block cursor-pointer text-sm pe-3 select-none rounded-xl p-2 text-center peer-checked:bg-red-700 ps-3 peer-checked:font-bold peer-checked:text-white">Not Copmpany</label>
+                        {/* {profileData?.is_company ? <input type="radio" onBlur={handleBlur} onChange={handleChange} name="is_company" id="not-company" value="false"  class="peer hidden" /> :<input type="radio" onBlur={handleBlur} onChange={handleChange} name="is_company" id="not-company" value="false"  class="peer hidden" checked/> } */}
+                        <input type="radio" onBlur={handleBlur} onChange={handleChange} name="is_company" id="not-company" value="false"  class="peer hidden" /> 
+                        <label for="not-company" class="block cursor-pointer text-sm pe-3 select-none rounded-xl p-2 text-center peer-checked:bg-red-700 ps-3 peer-checked:font-bold peer-checked:text-white">Not Company</label>
+                        {profileData.is_company ? <h1>true</h1> : <h1>false</h1>}
                     </div>
                 </div>
+                <span className="block text-sm font-medium leading-6 pt-4 pb-1 text-gray-900">Member</span>
+                <div class="grid  grid-cols-2 gap-2 rounded-xl bg-gray-200 ">
+                    
+                    <div>
+                        <input type="radio" onBlur={handleBlur} onChange={handleChange} name="is_member" id="member"  value="true" class="peer hidden"/>
+                        <label for="member" class="block text-sm cursor-pointer select-none rounded-xl p-2 text-center peer-checked:bg-[#398378] peer-checked:font-bold peer-checked:text-white">Yes</label>
+                    </div>
+
+                    <div>
+                        
+                        <input type="radio" onBlur={handleBlur} onChange={handleChange} name="is_member" id="not-member" value="false" class="peer hidden"/>
+                        <label for="not-member" class="block cursor-pointer text-sm pe-3 select-none rounded-xl p-2 text-center peer-checked:bg-red-700 ps-3 peer-checked:font-bold peer-checked:text-white">No</label>
+                        {profileData.is_member ? <h1>true</h1> : <h1>false</h1>}
+                    </div>
+                </div>                
             </main>
 
             <div className="py-2"> 

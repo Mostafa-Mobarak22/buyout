@@ -4,11 +4,12 @@ import logo from '../../assets/logo-no-background.png'
 import { Link, Navigate, useNavigate } from 'react-router-dom'
 import { tokenContext } from '../../assets/context/TokenContext'
 export default function Navbar() {
-    const { token,setToken } = useContext(tokenContext)
+    const { token,setToken,id,setId } = useContext(tokenContext)
     const navigate = useNavigate()
     setToken(localStorage.getItem("user_token"))
     function logout(){
         localStorage.removeItem("user_token")
+        localStorage.removeItem("user_id")
         navigate('/login')
     }
 return <>
@@ -55,7 +56,7 @@ return <>
             <ul tabIndex={0} className="menu menu-sm dropdown-content bg-[#398378] rounded-box z-[1] mt-3 w-52 p-2 shadow">
                 {token ? <>
                     <li className='hover:bg-[#398378] hover:shadow'>
-                    <Link to='profile' className='text-white font-semibold text-decoration-none'>Profile</Link>
+                    <Link to={'/profile/'+id} className='text-white font-semibold text-decoration-none'>Profile</Link>
                     </li>
                     <li className="hover:bg-[#398378] hover:shadow"><Link to='home' className='text-white font-semibold text-decoration-none'>My Property</Link></li>  
                     <li className='hover:bg-[#398378] hover:shadow'><button  onClick={()=>logout()} className='text-white font-semibold'>Logout</button></li>              

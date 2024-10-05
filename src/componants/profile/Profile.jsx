@@ -5,9 +5,12 @@ import * as Yup from 'yup'
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 import Loading from '../loading/Loading'
+import { Link, Navigate, useNavigate } from 'react-router-dom'
 import { toast, Bounce, ToastContainer } from 'react-toastify'
-
+import { useParams } from 'react-router-dom'
 export default function Profile() {
+    const {id} = useParams()
+    console.log(id)
     const [profileData , setProfileData] = useState(null)
     const [isLoading,setIsLoading] = useState(true)
     useEffect(() => {
@@ -16,7 +19,7 @@ export default function Profile() {
 
     async function getProfile() {
         try {
-            await axios.get("http://127.0.0.1:8000/user/get/26/", {
+            await axios.get("http://127.0.0.1:8000/user/get/"+id+"/", {
             }).then((data)=>{
                 setProfileData(data.data);  
                 setIsLoading(false)
@@ -65,7 +68,7 @@ export default function Profile() {
     async function editProfile(){
         values.image = document.getElementById("image").files[0]
         values.register_photo = document.getElementById("register_photo").files[0]
-        let {data} = await axios.patch("http://127.0.0.1:8000/user/26/",values, {
+        let {data} = await axios.patch("http://127.0.0.1:8000/user/"+id+"/",values, {
             headers: {
                 'Content-Type': 'multipart/form-data',
             },
@@ -193,6 +196,9 @@ return <>
             </div>
             <div>
                 <button type="submit" className="flex w-full justify-center rounded-md bg-[#398378] px-3 py-2 text-lg font-semibold leading-6 text-white shadow-sm hover:bg-[#31C48D] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Save</button>
+            </div>
+            <div>
+            <Link to={"/addproperty/"+id}> <button  className="flex w-full justify-center rounded-md px-3 py-2 text-lg border-2 border-[#398378] font-semibold leading-6 text-[#398378] shadow-sm hover:bg-[#398378] hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Add Property </button></Link>
             </div>
         </form>
     </div>
