@@ -20,7 +20,7 @@
 
 // export default ContactUs;
 import React from 'react';
-import './ContactUs.css'; // Import your CSS file
+// import './ContactUs.css'; 
 
 function ContactUs() {
   return (

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import './register.css'
+// import './register.css'
 import {useFormik} from 'formik'
 import crat2 from '../../assets/logo-no-background.png'
 import * as Yup from 'yup'

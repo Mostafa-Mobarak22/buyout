@@ -3,7 +3,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './SearchBarWithBack.css';
+// import './SearchBarWithBack.css';
 
 function SearchBarComponent() {
   const [propertyType, setPropertyType] = useState('');

@@ -5,7 +5,7 @@ import Cart from '../cart/Cart'
 import EmptyWishPage from './emptywishlist'
 
 export default function WishList() {
-    const [properties, setProperties] = useState(null)
+    const [properties, setProperties] = useState([])
     useEffect(()=>{
         getProperties()
     },[])
@@ -17,7 +17,8 @@ export default function WishList() {
 
   return <>
   {
-    !properties ? <EmptyWishPage/> :
+    
+    !properties  ? <EmptyWishPage/> :
 <div className='container pt-10'>
         
 <div className='grid sm:ms-5 md:grid-cols-2 xl:grid-cols-3 gap-x-3 gap-y-4'>
@@ -27,7 +28,6 @@ export default function WishList() {
                             return  <Cart properties={property}/>
                         })
                     }
-      {/* <Cart/> */}
     </div>
 </div>
   }

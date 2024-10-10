@@ -3,22 +3,20 @@ import {createBrowserRouter, RouterProvider} from 'react-router-dom'
 import './App.css'
 import Register from './componants/register/Register'
 import Login from './componants/login/Login'
-import HeroSection from './componants/herosection/heroSection'
 import Profile from './componants/profile/Profile'
 import Layout from './componants/layout/Layout'
-import Navbar from './componants/navbar/Navbar'
-import Loading from './componants/loading/Loading'
 import AddPropertyForm from './componants/addproperty/addproperty'
 import { ToastContainer } from 'react-toastify'
 import Home from './componants/home/Home'
 import TokenContext from './assets/context/TokenContext'
 import LandingPage from './pages/landin_page/landing_page'
-import Cart from './componants/cart/Cart'
 import AllModel from './componants/dashboard/AllModel'
 import AllUser from './componants/dashboard/user/AllUser'
 import EditUser from './componants/dashboard/user/EditUser'
 import Search from './componants/searchBar/searchBar'
 import NotFound from './componants/404/NotFound'
+import PropertyPage from './componants/property page/PropertyPage'
+import WishList from './componants/wish list/WishList'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -35,6 +33,8 @@ function App() {
       {path: "edituser/:id",element: <EditUser/>},
       {path: "search",element: <Search/>},
       {path: "addproperty/:id",element: <AddPropertyForm/>},
+      {path:"propertypage/:id",element: <PropertyPage/>},
+      {path:"wishlist",element: <WishList/>},
       {path:"*",element: <NotFound/>}
 
     ]}

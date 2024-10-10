@@ -10,7 +10,6 @@ import { toast, Bounce, ToastContainer } from 'react-toastify'
 import { useParams } from 'react-router-dom'
 export default function Profile() {
     const {id} = useParams()
-    console.log(id)
     const [profileData , setProfileData] = useState(null)
     const [isLoading,setIsLoading] = useState(true)
     useEffect(() => {
@@ -29,7 +28,7 @@ export default function Profile() {
             console.error("Error fetching profile data", error);
         }
     }
-    let { handleSubmit,values,handleChange,errors,touched,handleBlur,setValues} = useFormik({
+    let { handleSubmit,values,handleChange,errors,touched,handleBlur} = useFormik({
         initialValues:{
             "user_name":profileData?.user_name,
             "phone":profileData?.phone,
@@ -49,31 +48,33 @@ export default function Profile() {
             email:Yup.string().required("email is required").email("email not correct"),
             phone:Yup.string().required("phone is required").matches(/^01[0-2,5]{1}[0-9]{8}$/,"phone number not correct"),
             another_phone:Yup.string().nullable().matches(/^01[0-2,5]{1}[0-9]{8}$/,"phone number not correct"),
-            image: Yup.mixed().nullable().test('fileFormat', 'Only image files are allowed', value => {
-                if (values.image) {
-                    const supportedFormats = ['png','jpg','jpeg','gif','webp'];
-                        return supportedFormats.includes(values.image.split('.').pop());
-                }
-                return true;
-            }),
-            register_photo: Yup.mixed().nullable().test('fileFormat', 'Only image files are allowed', value => {
-                if (values.register_photo) {
-                    const supportedFormats = ['png','jpg','jpeg','gif','webp'];
-                        return supportedFormats.includes(values.register_photo.split('.').pop());
-                }
-                return true;
-            })
+            // image: Yup.mixed().nullable().test('fileFormat', 'Only image files are allowed', value => {
+            //     if (values.image) {
+            //         const supportedFormats = ['png','jpg','jpeg','gif','webp'];
+            //             return supportedFormats.includes(values.image.name.split('.').pop());
+            //     }
+            //     return true;
+            // }),
+            // register_photo: Yup.mixed().nullable().test('fileFormat', 'Only image files are allowed', value => {
+            //     if (values.register_photo) {
+            //         const supportedFormats = ['png','jpg','jpeg','gif','webp'];
+            //             return supportedFormats.includes(values.register_photo.split('.').pop());
+            //     }
+            //     return true;
+            // })
         })
     })
     async function editProfile(){
         values.image = document.getElementById("image").files[0]
         values.register_photo = document.getElementById("register_photo").files[0]
+        console.log(values)
+        // values.register_photo = document.getElementById("register_photo").files[0]
         let {data} = await axios.patch("http://127.0.0.1:8000/user/"+id+"/",values, {
             headers: {
                 'Content-Type': 'multipart/form-data',
             },
         });
-        
+        console.log(data);
         getProfile()
         toast.success('Your Account Updated', {
             position: "bottom-center",
@@ -97,7 +98,7 @@ return <>
         <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Update your profile</h2>
     </div> */}
     <div className="w-20 h-20 rounded-full mx-auto hover:bg-[#31C48D] shadow-lg">
-        <img className='w-100 rounded-full' alt="Navbar component" src={"http://127.0.0.1:8000"+profileData.image} />
+        <img className='w-100 rounded-full hover:scale-150 duration-150' alt="Navbar component" src={"http://127.0.0.1:8000"+profileData.image} />
     </div>
 
     <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-lg">
@@ -129,7 +130,7 @@ return <>
                             <div className="mt-4 flex text-sm leading-6 text-gray-600">
                                 <label htmlFor="image" className="relative cursor-pointer rounded-md bg-white font-semibold text-[#398378]  focus-within:outline-none focus-within:ring-2 focus-within:ring-[#31C48D] focus-within:ring-offset-2 hover:text-[#31C48D]">
                                     <span>Upload a file</span>
-                                    <input onBlur={handleBlur}  accept="image/png, image/jpeg, image/gif, image/jpg, image/webp" onChange={handleChange} id="image" name="image" type="file" className="sr-only focus:outline-[#398378]"/>
+                                    <input onBlur={handleBlur}  accept="image/png, image/jpeg, image/gif, image/jpg, image/webp" onChange={handleChange} id="image" name="image" type="file" multiple className="sr-only focus:outline-[#398378]"/>
                                     <span>{values.image?.name}</span>
                                 </label>
                                 {touched.image && errors.image && <p className='text-red-500'>{errors.image}</p>}
@@ -195,10 +196,10 @@ return <>
                 </div>
             </div>
             <div>
-                <button type="submit" className="flex w-full justify-center rounded-md bg-[#398378] px-3 py-2 text-lg font-semibold leading-6 text-white shadow-sm hover:bg-[#31C48D] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Save</button>
+                <button type="submit" className="flex w-full justify-center rounded-md bg-[#398378] px-3 py-2 text-lg font-semibold leading-6 text-white shadow-sm hover:bg-[#31C48D] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 duration-100">Save</button>
             </div>
             <div>
-            <Link to={"/addproperty/"+id}> <button  className="flex w-full justify-center rounded-md px-3 py-2 text-lg border-2 border-[#398378] font-semibold leading-6 text-[#398378] shadow-sm hover:bg-[#398378] hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Add Property </button></Link>
+            <Link to={"/addproperty/"+id}> <button  className="flex w-full justify-center rounded-md px-3 py-2 text-lg border-2 border-solid border-[#398378] font-semibold leading-6 text-[#398378] shadow-sm hover:bg-[#398378] hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 duration-[0.5s]">Add Property </button></Link>
             </div>
         </form>
     </div>

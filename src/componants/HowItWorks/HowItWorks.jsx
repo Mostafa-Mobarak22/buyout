@@ -59,7 +59,7 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHome, faBriefcase, faKey } from '@fortawesome/free-solid-svg-icons';
-import './HowItWorks.css';
+// import './HowItWorks.css';
 
 function HowItWorks() {
   return (

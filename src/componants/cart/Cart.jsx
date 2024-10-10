@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import profile from '../../assets/profile-photo.jpg'
 import area from '../../assets/area.png'
 import area1 from '../../assets/profile-photo.jpg'
@@ -6,9 +6,14 @@ import Slider from "react-slick"
 import * as Yup from 'yup'
 import axios from 'axios'
 import {useFormik} from 'formik'
-export default function Cart() {
+import { Link } from 'react-router-dom'
+import { addToWishList } from '../../addwish'
+import { tokenContext } from '../../assets/context/TokenContext'
+export default function Cart({properties}) {
     const [showModal, setShowModal] = useState(false);
+    const [flag, setflag] = useState(false);
     const [success, setSuccess] = useState("");
+    console.log(properties);
     var settings = {
         dots: true,
         infinite: true,
@@ -16,9 +21,10 @@ export default function Cart() {
         slidesToShow: 1,
         slidesToScroll: 1,
         autoplay: true,
-        autoplaySpeed: 2000,
+        autoplaySpeed: 3000,
         pauseOnHover: true
     };
+    
     let { handleSubmit,values,handleChange,errors,touched,handleBlur} = useFormik({
         initialValues:{
             "name":"",
@@ -34,79 +40,78 @@ export default function Cart() {
     })
     async function register(){
         const { data } = await axios.post("http://127.0.0.1:8000/user/massage/",values)
-        console.log(data)
         setSuccess(data.success_massage)
     }
 return <>
-<div className="flex w-full max-w-[32rem] flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-lg">
+<div className="flex w-full max-w-[33rem] sm:max-w-[36rem] flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-lg">
+<Link to={"/propertypage/"+properties.id}>
     <div className="rounded-xl overflow-hidden rounded-b-none bg-blue-gray-500 bg-clip-border text-white shadow-md shadow-blue-gray-500/40">
-                <Slider {...settings}>
-                    {
-                        [1,1,1,1,1].map((e)=>{
-                            return <img className='w-100' src={area1} alt="ui/ux review check"/>
-                        })
-                    }
-                </Slider>
+        <Slider {...settings}>
+            {
+                [1,1,1,1,1].map((e)=>{
+                    return <img className='w-100' src={area1} alt="ui/ux review check"/>
+                })
+            }
+        </Slider>
     </div>
+</Link>
     <div className="p-6">
-        <div className="mb-3 flex flex-col justify-between">
+        <div className="mb-1 flex flex-col justify-between">
             <div className='flex justify-between'>
                 <div>
-                    <h6 className="block font-sans text-sm font-normal leading-snug tracking-normal text-blue-gray-900 antialiased">villa</h6>
-                    <h2 className="block font-sans text-2xl pb-3 font-bold leading-snug tracking-normal text-black antialiased">EGP 151651651</h2>
+                    <h6 className="block font-sans text-sm font-normal leading-snug tracking-normal text-blue-gray-900 antialiased">{properties.commercial}</h6>
+                    <h2 className="block font-sans text-2xl pb-3 font-bold leading-snug tracking-normal text-black antialiased">EGP {properties.price}</h2>
 
                 </div>
                 <div className='w-1/5'>
-                    <img src={profile} className='' alt="logo" />
+                    <img src={properties.user_id} className='' alt="logo" />
                 </div>
             </div>
 
-            <h5 className="block font-sans text-xl font-medium leading-snug tracking-normal text-blue-gray-900 antialiased">Wooden House, Florida</h5>
+            <h5 className="line-clamp-1 mb-2 font-sans text-xl font-medium leading-snug tracking-normal text-blue-gray-900 antialiased ">{properties.title}</h5>
+            <p className="line-clamp-1 mb-2 font-sans text-base font-light leading-relaxed text-gray-700 antialiased  mt-1"><i class="fa-solid fa-location-dot me-2 text-[#31C48D]"></i>{properties.location}</p>
         </div>
-        <p className="block font-sans text-base font-light leading-relaxed text-gray-700 antialiased">Enter a freshly updated and thoughtfully furnished peaceful homesurrounded by ancient trees, stone walls, and open meadows.</p>
-        <div className="mt-8 flex flex-wrap items-center gap-3">
+        <p className="line-clamp-1  font-sans text-base font-light leading-relaxed text-gray-700 antialiased ">{properties.description}</p>
+        <div className="mt-6 flex flex-wrap items-center gap-2">
             <span
                 data-tooltip-target="money"
-                className="pe-1 text-black transition-colors"
+                className="pe-1 text-sm text-black transition-colors"
             >
                 <i class="fa-solid fa-bed pe-2"></i>
-                5
+                {properties.bed}
             </span>
             <span
                 data-tooltip-target="money"
-                className="pe-1 text-black transition-colors"
+                className="pe-1 text-sm text-black transition-colors"
             >
                 <i class="fa-solid fa-bath pe-2"></i>
-                5
-            </span>
-   
-            <span
-                data-tooltip-target="money"
-                className="pe-1 text-black transition-colors"
-            >
-                <i class="fa-solid fa-person-swimming pe-2"></i>
-                5
+                {properties.bath}
             </span>
             <span
                 data-tooltip-target="money"
-                className="pe-1 text-black transition-colors"
+                className="pe-1 text-sm text-black transition-colors"
             >
-                {/* <img src={area} className='inline pe-2' alt="" /> */}
-                200 Sq.M. 
+                
+                <img src={area} className='inline pe-2' alt="" />
+
+                {properties.area} Sq.M. 
             </span>
-            <span className="grow ">
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 24 24"
-                        fill="currentColor"
-                        aria-hidden="true"
-                        className="h-8 w-8 ms-auto hover:text-red-500 cursor-pointer"
-                        >
-                        <path d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z"></path>
-                    </svg>
-                </span>            
+            
+            <span className="grow">
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    aria-hidden="true"
+                    onClick={(e)=>{e.currentTarget.classList.toggle("text-red-500");addToWishList(properties.id,(localStorage.getItem("user_id")),flag);setflag(!flag);console.log(flag)}}
+                    className="h-8 w-8 ms-auto   cursor-pointer"
+                    >
+                    <path d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z"></path>
+                </svg>
+            </span>            
         </div>
     </div>
+
     <div className="p-3 pt-3 flex gap-1">
         <button
             className="block w-full select-none rounded-lg bg-[#398378] py-1 text-center align-middle font-sans text-2xl font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-[#398378] hover:bg-[#31C48D] focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
@@ -121,7 +126,7 @@ return <>
             type="button"
             data-ripple-light="true"
         >
-            <i className="fa-solid fa-phone"></i>
+            <i class="fa-solid fa-info"></i>
         </button>
         <button
             className="block w-full select-none rounded-lg bg-[#398378] text-center align-middle font-sans text-2xl font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-[#398378] hover:bg-[#31C48D] focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
@@ -139,9 +144,8 @@ return <>
             className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none "
           >
             <div className="relative w-auto my-6 mx-auto max-w-lg">
-              {/*content*/}
               <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
-                {/*header*/}
+
                 <div className="flex items-start justify-between p-2 border-b border-solid border-blueGray-200 rounded-t">
                   <h3 className="text-xl py-2 ps-2 font-semibold">
                     Send Your Message
@@ -155,7 +159,6 @@ return <>
                     </span>
                   </button>
                 </div>
-                {/*body*/}
                 <form onSubmit={handleSubmit}>
                 <div className="relative p-6 flex-auto">
                     <div className="flex gap-x-2">
@@ -185,7 +188,6 @@ return <>
                         {success && <p className='text-green-700 pt-3 text-center'>{success}</p>}  
 
                 </div>
-                {/*footer*/}
                 <div className="flex items-center justify-end p-2 border-t border-solid border-blueGray-200 rounded-b">
                   <button 
                     className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
