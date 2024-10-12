@@ -147,7 +147,6 @@ function SearchBarComponent() {
                     </Form.Group>
                   </div>
                 </div>
-
                 <Button variant="customPrimary" className="mt-4 w-100" onClick={handleSearch}>
                   Search Now
                 </Button>
