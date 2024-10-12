@@ -1,0 +1,14 @@
+/* @import url('https://cdn-uicons.flaticon.com/2.6.0/uicons-solid-straight/css/uicons-solid-straight.css'); */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root{
+    background-color: white;
+    color-scheme: light;
+}
+@media (prefers-color-scheme: light) {
+    :root {
+        color-scheme: light;
+    }
+}
