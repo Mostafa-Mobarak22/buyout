@@ -6,33 +6,36 @@ export default function Pricing() {
     const [isLoad,setIsLoad]=useState(false)
     const {id,name}=useParams()
     console.log(name,id)
-    async function mounthoffer(){
+    async function mounthoffer(duration){
         setIsLoad(true)
         const {data} = await axios.post("http://127.0.0.1:8000/payment/",{
             id:id,
-            unit_amount:100000
+            unit_amount:100000,
+            time_duration:duration
         })
         console.log(data)
         window.location = data.url
 
         setIsLoad(false)
     }
-    async function sixmounthoffer(){
+    async function sixmounthoffer(duration){
         setIsLoad(true)
         const {data} = await axios.post("http://127.0.0.1:8000/payment/",{
             id:id,
-            unit_amount:800000
+            unit_amount:800000,
+            time_duration:duration
         })
         console.log(data)
         window.location = data.url
 
         setIsLoad(false)
     }
-    async function yearoffer(){
+    async function yearoffer(duration){
         setIsLoad(true)
         const {data} = await axios.post("http://127.0.0.1:8000/payment/",{
             id:id,
-            unit_amount:1500000
+            unit_amount:1500000,
+            time_duration:duration
         })
         console.log(data)
         window.location = data.url
@@ -77,7 +80,7 @@ export default function Pricing() {
                         <span>Free updates: <span class="font-semibold">6 months</span></span>
                     </li>
                 </ul>
-                <button onClick={()=>{mounthoffer()}} disabled={isLoad} class="text-white relative disabled:bg-[#ADBFB8] bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:ring-primary-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Get started {isLoad && <i className='absolute right-0 fas fa-spinner fa-spin me-3 text-xl'></i>}</button>
+                <button onClick={()=>{mounthoffer(31)}} disabled={isLoad} class="text-white relative disabled:bg-[#ADBFB8] bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:ring-primary-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Get started {isLoad && <i className='absolute right-0 fas fa-spinner fa-spin me-3 text-xl'></i>}</button>
             </div>
             <div class="flex flex-col p-6 mx-auto max-w-lg text-center text-gray-900 bg-white rounded-lg border border-gray-100 shadow  xl:p-8  ">
                 <h3 class="mb-4 text-2xl font-semibold">Company</h3>
@@ -108,7 +111,7 @@ export default function Pricing() {
                         <span>Free updates: <span class="font-semibold">24 months</span></span>
                     </li>
                 </ul>
-                <button onClick={()=>{sixmounthoffer()}} disabled={isLoad} class="text-white relative disabled:bg-[#ADBFB8] bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:ring-primary-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Get started {isLoad && <i className='absolute right-0 fas fa-spinner fa-spin me-3 text-xl'></i>}</button>            </div>
+                <button onClick={()=>{sixmounthoffer(180)}} disabled={isLoad} class="text-white relative disabled:bg-[#ADBFB8] bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:ring-primary-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Get started {isLoad && <i className='absolute right-0 fas fa-spinner fa-spin me-3 text-xl'></i>}</button>            </div>
             <div class="flex flex-col p-6 mx-auto max-w-lg text-center text-gray-900 bg-white rounded-lg border border-gray-100 shadow  xl:p-8  ">
                 <h3 class="mb-4 text-2xl font-semibold">Enterprise</h3>
                 <p class="font-light text-gray-500 sm:text-lg ">Best for large scale uses and extended redistribution rights.</p>
@@ -138,7 +141,7 @@ export default function Pricing() {
                         <span>Free updates: <span class="font-semibold">36 months</span></span>
                     </li>
                 </ul>
-                <button onClick={()=>{yearoffer()}} disabled={isLoad} class="text-white relative disabled:bg-[#ADBFB8] bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:ring-primary-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Get started {isLoad && <i className='absolute right-0 fas fa-spinner fa-spin me-3 text-xl'></i>}</button>            </div>
+                <button onClick={()=>{yearoffer(365)}} disabled={isLoad} class="text-white relative disabled:bg-[#ADBFB8] bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:ring-primary-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Get started {isLoad && <i className='absolute right-0 fas fa-spinner fa-spin me-3 text-xl'></i>}</button>            </div>
         </div>
     </div>
 </section>
