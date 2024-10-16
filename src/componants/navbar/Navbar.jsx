@@ -4,7 +4,6 @@ import logo from '../../assets/logo-no-background.png'
 import { Link, Navigate, useNavigate, NavLink } from 'react-router-dom'
 import { tokenContext } from '../../assets/context/TokenContext'
 import axios from 'axios'
-import "./navbar.css"
 import { propTypes } from 'react-bootstrap/esm/Image'
 export default function Navbar() {
     const { token,setToken,id,setId } = useContext(tokenContext)
