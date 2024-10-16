@@ -29,7 +29,6 @@ const EditProperty = () => {
             await axios.get("http://127.0.0.1:8000/property/properties/"+id+"/", {
             }).then((data)=>{
                 setProfileData(data.data);
-                console.log(data.data.image);
                 setIsLoading(false)
             })
         } catch (error) {
@@ -94,7 +93,6 @@ const EditProperty = () => {
             "country":profileData?.country,
             "street":profileData?.street,
             "area":profileData?.area,
-            // "image":profileData?.image,
             "commercial":profileData?.commercial,
             "location":profileData?.location,
             "user_id":profileData?.user_id,
@@ -102,32 +100,13 @@ const EditProperty = () => {
         },
         enableReinitialize: true,
         onSubmit: editProperty,
-        validationSchema:Yup.object({
-            // title:Yup.string().required("title is required").min(5,"title must be more than 5 character").max(100,"title must be less than 100 character"),
-            // location:Yup.string().required("Should write Location Your Property" ).min(10,"location must be more than 10 character").max(150,"location must be less than 150 character"),
-            // description:Yup.string().required("Should write  for Your Property" ),
-            // property_type:Yup.string().required("Choose usage of Property"),
-            // bed:Yup.number().test("maxDigits","bed field must have exactly 1 digits",(bed) => String(bed).length === 1),
-            // bath:Yup.number().test("maxDigits","bath field must have exactly 1 digits",(bath) => String(bath).length === 1),
-            // price:Yup.number().required("Enter the property price" ).test("maxDigits","price field must have exactly 10 digits",(price) => String(price).length <= 10),
-            // governorate:Yup.string().required("Choose Governorate  of Your Property" ),
-            // area:Yup.number().required("Enter the property area" ).test("maxDigits","area field must have exactly 7 digits",(area) => String(area).length <= 7),
-            // commercial:Yup.string().required("Choose Type of Property"),
-            // city:Yup.string().required("Enter City  of Your Property" ).min(4,"city must be more than 4 character"),
-            // street:Yup.string().required("Enter street of Your Property" ).min(5,"street must be more than 5 character"),
-        })
     })
     async function editProperty(){
-        console.log(values)
-        // console.log(typeof document.getElementById("image").files)
-        // values.image = document.getElementById("image").files[0]
-        // console.log(document.getElementById("image").files[0])
         let { data } = await axios.patch("http://127.0.0.1:8000/property/properties/"+id+"/",values, {
             headers: {
                 'Content-Type': 'multipart/form-data',
             },
         });
-        console.log(data) 
         toast.success('This Property Added', {
             position: "bottom-center",
             autoClose: 2500,

@@ -28,7 +28,6 @@ export default function PropertyPage() {
     })
     async function register(){
         const { data } = await axios.post("http://127.0.0.1:8000/user/massage/",values)
-        console.log(data)
         setSuccess(data.success_massage)
     }
     var settings = {
@@ -44,8 +43,6 @@ export default function PropertyPage() {
     const {id} = useParams()
     async function getProprety(){
         const { data } = await axios.get(`http://127.0.0.1:8000/property/properties/${id}/`)
-        console.log(data)
-        console.log(data.commercial)
         setProperty(data)
 
     }
@@ -53,7 +50,6 @@ export default function PropertyPage() {
         const { data } = await axios.get(`http://127.0.0.1:8000/property/properties`)
 
         setSameProperty(data.filter((e)=>{return e.commercial==property.commercial}))
-        console.log(data.filter((e)=>{return e.commercial==property.commercial}))
     }
     useEffect(() => {
         getProprety()

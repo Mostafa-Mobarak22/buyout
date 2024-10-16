@@ -9,7 +9,6 @@ import { Link, useNavigate } from 'react-router-dom'
 import { addToWishList } from '../../addwish'
 import { tokenContext } from '../../assets/context/TokenContext'
 export default function Cart({properties}) {
-    console.log(properties.user_id.image)
     const navigate = useNavigate()
     const [showModal, setShowModal] = useState(false);
     const [flag, setflag] = useState(false);
@@ -111,7 +110,6 @@ return <>
                             addToWishList(properties.id,(localStorage.getItem("user_id")),flag);
                             setflag(!flag);
                             console.log(flag)
-                            // getProperties
                         }
                         else{
                             navigate("/login")

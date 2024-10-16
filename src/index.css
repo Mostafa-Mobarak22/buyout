@@ -12,3 +12,6 @@
         color-scheme: light;
     }
 }
+.active{
+    @apply font-bold underline text-[#31C48D]
+}

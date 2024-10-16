@@ -21,7 +21,6 @@ export default function Profile() {
             await axios.get("http://127.0.0.1:8000/user/get/"+id+"/", {
             }).then((data)=>{
                 setProfileData(data.data);  
-                console.log(data.data.is_member)
                 setIsLoading(false)
             })
         } catch (error) {
@@ -69,7 +68,6 @@ export default function Profile() {
         values.image = document.getElementById("image").files[0]
         values.register_photo = document.getElementById("register_photo").files[0]
         console.log(values)
-        // values.register_photo = document.getElementById("register_photo").files[0]
         let {data} = await axios.patch("http://127.0.0.1:8000/user/"+id+"/",values, {
             headers: {
                 'Content-Type': 'multipart/form-data',
@@ -94,10 +92,6 @@ return <>
     {
         !profileData ? <Loading /> : 
 <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
-    {/* <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-        <img className="mx-auto h-10 w-auto" src={crat2} alt="Your Company"/>
-        <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Update your profile</h2>
-    </div> */}
     <div className="w-20 h-20 rounded-full mx-auto hover:bg-[#31C48D] shadow-lg">
         <img className='w-100 rounded-full hover:scale-150 duration-150' alt="Navbar component" src={"http://127.0.0.1:8000"+profileData.image} />
     </div>

@@ -23,6 +23,7 @@ export default function Register() {
             password:Yup.string().required("password is required").matches(/^(?=.*[A-Z])(?=.*[!@#$%^&*(),.?":{}|<>])(?=.*\d)[A-Za-z\d!@#$%^&*(),.?":{}|<>]{8,50}$/,"At least one uppercase letter,least one special character,length is between 8 and 50 characters"),
         })
     })
+    
     async function register(){
         setIsLoad(true)
         setErrMsg("")
@@ -35,7 +36,6 @@ export default function Register() {
             setActive(data.not_active)
             setToken(data.token)
             setId(data.id)
-            console.log(data.admin)
             if(!(Boolean(data.error))){
                 if(!Boolean(data.not_active)){
                     localStorage.setItem("user_token",data.token)
@@ -46,8 +46,6 @@ export default function Register() {
                     else{
                         navigate('/')
                     }
-
-                    console.log(localStorage.getItem("user_id"))
                     
                 }
             }
@@ -75,9 +73,9 @@ return <>
             <div>
                 <div className="flex items-center justify-between">
                     <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">Password</label>
-          {/* <div className="text-sm">
-            <a href="#" className="font-semibold text-indigo-600 hover:text-indigo-500">Forgot password?</a>
-          </div> */}
+                    <div className="text-sm">
+                        <Link to={"/reset"} className="font-semibold text-[#398378] hover:text-[#31C48D]">Forgot password?</Link>
+                    </div>
                 </div>
                 <div className="mt-2">
                     <input onBlur={handleBlur} onChange={handleChange} id="password" value={values.password} name="password" type="password" placeholder='Password' className="block focus:outline-[#398378] w-full rounded-md border-2 p-2 text-gray-950 font-2xl bg-white shadow-sm placeholder:text-gray-500 sm:text-sm "/>

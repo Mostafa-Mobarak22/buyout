@@ -1,11 +1,15 @@
 import React from 'react'
 import Navbar from '../navbar/Navbar'
 import { Outlet } from 'react-router-dom'
+import Footer from '../footer/footer'
 export default function Layout() {
   return <>
       <Navbar/>
-      <Outlet/>
-  
+      <div className='mt-10'>
+        <Outlet/>
+      </div>
+      
+      <Footer/>
   </> 
 
   

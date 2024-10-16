@@ -68,7 +68,6 @@ const AddPropertyForm = () => {
             "image":"",
             "commercial":"Retail",
             "location":"",
-            // "user_id":id,
             "user":id
         },
         enableReinitialize: true,
@@ -89,10 +88,7 @@ const AddPropertyForm = () => {
         })
     })
     async function addProperty(){
-        console.log(values)
-        console.log(typeof document.getElementById("image").files)
         values.image = document.getElementById("image").files[0]
-        console.log(document.getElementById("image").files[0])
         let { data } = await axios.post("http://127.0.0.1:8000/property/properties/",values, {
             headers: {
                 'Content-Type': 'multipart/form-data',
@@ -110,7 +106,6 @@ const AddPropertyForm = () => {
             theme: "light",
             transition: Bounce,
             });
-            console.log(data.user_id.image)
     }
 
     return <>

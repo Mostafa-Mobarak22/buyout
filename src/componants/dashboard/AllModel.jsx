@@ -10,8 +10,9 @@ export default function AllModel() {
     navigate('/login')
 }
   return <>
-  <div className='grid grid-cols-12'>
-<div class=" overflow-hidden col-span-2 flex flex-col bg-clip-border rounded-xl bg-white text-gray-700 h-screen w-full max-w-[16rem]  py-4 shadow-xl shadow-blue-gray-900/5">
+<div className='grid grid-cols-12 relative'>
+<div class=" overflow-hidden fixed z-20 left-0 bottom-0 col-span-2 flex flex-col bg-clip-border rounded-xl bg-white text-gray-700 h-screen w-full max-w-[16rem]  py-4 shadow-xl shadow-blue-gray-900/5">
+  {/* <div className='fixed left-0 bottom-0'></div> */}
   <div class="mb-2 p-4">
     <h5 class="block antialiased tracking-normal font-sans text-xl font-semibold leading-snug text-gray-900">Admin Dashboard</h5>
   </div>
@@ -65,7 +66,7 @@ export default function AllModel() {
     </div>
   </nav>
 </div>    
-<div className='col-span-10'>
+<div className='col-span-10 right-10  absolute'>
   <Outlet/>
 </div>
   </div>

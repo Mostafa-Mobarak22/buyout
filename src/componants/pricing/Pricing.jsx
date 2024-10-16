@@ -5,7 +5,6 @@ import { useParams } from 'react-router-dom'
 export default function Pricing() {
     const [isLoad,setIsLoad]=useState(false)
     const {id,name}=useParams()
-    console.log(name,id)
     async function mounthoffer(duration){
         setIsLoad(true)
         const {data} = await axios.post("http://127.0.0.1:8000/payment/",{
@@ -13,7 +12,6 @@ export default function Pricing() {
             unit_amount:100000,
             time_duration:duration
         })
-        console.log(data)
         window.location = data.url
 
         setIsLoad(false)
@@ -25,7 +23,6 @@ export default function Pricing() {
             unit_amount:800000,
             time_duration:duration
         })
-        console.log(data)
         window.location = data.url
 
         setIsLoad(false)
@@ -37,7 +34,6 @@ export default function Pricing() {
             unit_amount:1500000,
             time_duration:duration
         })
-        console.log(data)
         window.location = data.url
 
         setIsLoad(false)

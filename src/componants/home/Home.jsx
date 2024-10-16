@@ -34,19 +34,14 @@ export default function Home() {
     'Warehouse', 
     'Garage',
     'Other Commercial', 
-
-        
 ])
   useEffect(()=>{
     getProperty()
   },[])
   async function getProperty(){
     let {data} = await axios.get(`http://127.0.0.1:8000/property/properties/`)
-    console.log(data)
-    console.log(data[0].is_published)
     setProperties(data.filter((e)=>{return e.is_published==true}))
     searchproperties(data.filter((e)=>{return e.is_published==true}))
-    // console.log(properties)
   }
   function bedToggle(){
     document.getElementById("bed").classList.toggle("hidden")
@@ -93,11 +88,6 @@ export default function Home() {
         ((Number(searchArr[6].property_maxprice) == "" || property.price <=  Number(searchArr[6].property_maxprice))&&(Number(searchArr[7].property_minprice) == "" || property.price >=  Number(searchArr[7].property_minprice)))
       )
     }))
-
-
-
-
-    console.log(x)
     setProperties(x)
   }
   function reset(){
@@ -105,7 +95,7 @@ export default function Home() {
   }
   return <>
 { !properties ? <Loading/> :  
-  <div className='container pt-10 '>
+  <div className='container pt-10 mt-14'>
     <div className='flex flex-wrap mt-3 m-5 mx-0 pb-5 border-b-2 gap-3'>
       <div className='relative'>
         <i class="fa-solid fa-magnifying-glass absolute text-gray-500 inset-y-0 right-[12px] top-[11.5px]"></i>
@@ -182,7 +172,7 @@ export default function Home() {
           _
           <input type="number" id='max' placeholder='Max. Price (EGP)' className='py-2 px-2 focus:ring-0 rounded-lg w-44 border-2 border-gray-500 focus:outline-none focus:border-[#398378]' />
         </div>
-    </div>
+      </div>
     </div>
       <div className='relative'>
       <button id="beddropdown" value={bed} onClick={()=>{bedToggle()}}  data-dropdown-toggle="bed" class="text-gray-700 border-2 border-gray-500 focus:bg-[#398378] focus:border-[#398378] focus:text-white focus:outline-none font-medium rounded-lg text-sm px-3 py-2.5 text-center inline-flex items-center  " type="button"> {bed ? bed : null } Bed
@@ -205,7 +195,7 @@ export default function Home() {
       </div>
       <div>
         <input type="number" id='area' placeholder='Area sqm' className='py-2 px-2 focus:ring-0 rounded-lg w-24 border-2 border-gray-500 focus:outline-none focus:border-[#398378]' />
-      </div>
+    </div>
 
       <button onClick={()=>{search()}} className='py-2 px-4 text-white bg-[#398378] rounded-lg font-medium hover:bg-[#31C48D]'><i class="fa-solid fa-magnifying-glass"></i> Search</button>
       <button onClick={()=>{reset()}} className='py-2 px-4 text-white bg-[#398378] rounded-lg font-medium hover:bg-[#31C48D]'><i class="fa-solid fa-magnifying-glass"></i> Reset</button>

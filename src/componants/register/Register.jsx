@@ -30,7 +30,6 @@ export default function Register() {
     async function register(){
         setIsLoad(true)
         let {data} = await axios.post("http://127.0.0.1:8000/user/add/",values)
-        console.log(data)
         setSuccess(data.success_message)
         setError(data.error_message)
         setIsLoad(false)

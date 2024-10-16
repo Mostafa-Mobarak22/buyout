@@ -10,7 +10,6 @@ function LandingPage() {
       <SearchBarComponent />
       <HowItWorks />
       {/* <ContactUs/> */}
-      <Footer/>
 
     </div>
   );

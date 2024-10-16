@@ -17,10 +17,7 @@ export default function EditUser() {
         try {
             await axios.get("http://127.0.0.1:8000/user/get/"+id+"/", {
             }).then((data)=>{
-                console.log(data.data);
-                console.log(typeof data.data.is_active)
                 setProfileData(data.data);
-                console.log(data.data.is_active)
                 setIsLoading(false)
             })
         } catch (error) {
@@ -49,36 +46,14 @@ export default function EditUser() {
             email:Yup.string().required("email is required").email("email not correct"),
             phone:Yup.string().required("phone is required").matches(/^01[0-2,5]{1}[0-9]{8}$/,"phone number not correct"),
             another_phone:Yup.string().nullable().matches(/^01[0-2,5]{1}[0-9]{8}$/,"phone number not correct"),
-            // image: Yup.mixed().nullable().test('fileFormat', 'Only image files are allowed', value => {
-            //     if (values.image) {
-            //         const supportedFormats = ['png','jpg','jpeg','gif','webp'];
-            //             return supportedFormats.includes(values.image.split('.').pop());
-            //     }
-            //     return true;
-            // }),
-            // register_photo: Yup.mixed().nullable().test('fileFormat', 'Only image files are allowed', value => {
-            //     if (values.register_photo) {
-            //         const supportedFormats = ['png','jpg','jpeg','gif','webp'];
-            //             return supportedFormats.includes(values.register_photo.split('.').pop());
-            //     }
-            //     return true;
-            // })
         })
     })
     async function editProfile(){
-        console.log(values)
-        console.log(values.is_company)
-        // values.image = document.getElementById("image").files[0]
-        console.log(values.is_active)
-        // values.is_active = document.querySelector('input[name="is_active"]:checked').value === 'true'
-        // values.register_photo = document.getElementById("register_photo").files[0]
         let {data} = await axios.patch("http://127.0.0.1:8000/user/"+id+"/",values, {
             headers: {
                 'Content-Type': 'multipart/form-data',
             },
         });
-        console.log(data)
-        // getProfile()
         toast.success('Your Account Updated', {
             position: "bottom-center",
             autoClose: 2500,
@@ -96,7 +71,7 @@ return <>
 
     {
         !profileData ? <Loading /> : 
-<div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+<div className="flex min-h-full flex-col justify-center  w-[44rem] px-6 py-12 lg:px-8">
     {/* <div className="sm:mx-auto sm:w-full sm:max-w-sm">
         <img className="mx-auto h-10 w-auto" src={crat2} alt="Your Company"/>
         <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Update your profile</h2>

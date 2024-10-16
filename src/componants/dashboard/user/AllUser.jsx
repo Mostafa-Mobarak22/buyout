@@ -45,7 +45,6 @@ export default function AllUser() {
       async function deleteUser(user) {
         try {
             const response = await axios.delete("http://127.0.0.1:8000/user/delete/"+user+"/");
-            console.log(response.data)
             setIsLoading(false);
             getUsers()
         } catch (error) {
