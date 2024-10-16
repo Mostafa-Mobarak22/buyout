@@ -1,7 +1,6 @@
 import React from 'react';
 import logo from '../../assets/logo-no-background.png'
 import { Link } from 'react-router-dom'
-// import './Footer.css'; 
 const Footer = () => {
   return <>
 <footer class="bg-gray-200 mt-5">
