@@ -9,6 +9,7 @@ export default function Navbar() {
     const { token,setToken,id,setId } = useContext(tokenContext)
     const [img,setImg] = useState(null)
     const [countproperty,setcountproperty] = useState(0)
+    const [user,setuser] = useState()
     const navigate = useNavigate()
     setToken(localStorage.getItem("user_token"))
     setId(localStorage.getItem("user_id"))
@@ -16,6 +17,8 @@ export default function Navbar() {
         const {data} = await axios.get("http://127.0.0.1:8000/user/get/"+localStorage.getItem("user_id")+"/")
         setImg(data.image)
         setcountproperty(data.wish)
+        setuser(data)
+
     }
     function logout(){
         localStorage.removeItem("user_token")
@@ -53,7 +56,7 @@ return <>
     <div className="flex-none relative">
     
 {        token && <div className="dropdown dropdown-end px-3">
-            <div tabIndex={0} role="button" className="w-10 h-10 grid pt-2 hover:text-[#31C48D]">
+            <div tabIndex={0} role="button" className="w-10 h-10 grid pt-2 hover:text-[#31C48D] hover:scale-150 duration-100">
                 <div className="indicator relative m-auto">
                     <Link to="/wishlist">
                         <svg
@@ -70,13 +73,13 @@ return <>
                             />
                         </svg>
                     </Link>
-                    <span className="badge badge-md indicator-item bg-[#ADBFB8] text-black hover:scale-150">{countproperty}</span>
+                    
                 </div>
             </div>
         </div>}
         <div className="dropdown dropdown-end">
-            <div tabIndex={0} role="button" className="btn btn-ghost btn-circle  avatar focus:border-0">
-                <div className="w-full  rounded-full grid">
+            <div tabIndex={0} role="button" className="btn btn-ghost btn-circle  avatar focus:border-0 hover:scale-125 duration-100">
+                <div className="w-full border-2 border-[#ADBFB8] rounded-full grid">
                     <img alt="login" src={img ? "http://127.0.0.1:8000"+img : profile} className='hover:scale-150 duration-100 w-full mx-auto rounded-full size-fit'/>
                 </div>
             </div>
@@ -86,6 +89,9 @@ return <>
                     <Link to={'/profile/'+id} className='text-white font-semibold text-decoration-none'>Profile</Link>
                     </li>
                     <li className="hover:bg-[#398378] hover:shadow"><Link to='/myproperty' className='text-white font-semibold text-decoration-none'>My Property</Link></li>  
+                    {
+                        user && <li className="hover:bg-[#398378] hover:shadow"><Link to={user.is_member ? "/addproperty/"+id : "/pricing/"+id+"/"+user.user_name} className='text-white font-semibold text-decoration-none'>Add Property</Link></li>
+                    }
                     <li className='hover:bg-[#398378] hover:shadow'><button  onClick={()=>logout()} className='text-white font-semibold'>Logout</button></li>              
                 </>:
                 <>

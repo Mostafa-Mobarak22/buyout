@@ -44,7 +44,7 @@ export default function AllProperty() {
       }
       async function deleteProperty(id) {
         try {
-            const response = await axios.delete("http://127.0.0.1:8000/property/properties"+id+"/");
+            const response = await axios.delete("http://127.0.0.1:8000/property/properties/"+id+"/");
             setIsLoading(false);
             getUsers()
         } catch (error) {
@@ -87,7 +87,7 @@ export default function AllProperty() {
 { usersData &&
 usersData.map((value,key)=>{
     return    <tr key={key}>
-        <td className="px-4 py-4 text-sm text-gray-950 whitespace-nowrap">{value.user_id["id"]}</td>
+        <td className="px-4 py-4 text-sm text-gray-950 whitespace-nowrap">{value.id}</td>
             <td className="px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
                 <div className="inline-flex items-center gap-x-3">
                     <div className="flex items-center gap-x-2">

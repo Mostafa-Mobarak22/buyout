@@ -52,6 +52,7 @@ function App() {
     ]},
     {path:"admin",element: <ProdectedRoute><AllModel/></ProdectedRoute>,children:[
       {path: "edituser/:id", element: <ProdectedRoute><EditUser/></ProdectedRoute>},
+      {path: "",element: <ProdectedRoute><AllUser/></ProdectedRoute>},
       {path: "alluser",element: <ProdectedRoute><AllUser/></ProdectedRoute>},
       {path: "allproperty",element: <ProdectedRoute><AllProperty/></ProdectedRoute>},
       {path: "editproperty/:id",element: <ProdectedRoute><EditProperty/></ProdectedRoute>},

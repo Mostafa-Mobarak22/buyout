@@ -3,7 +3,7 @@ import { FaHeart, FaArrowLeft } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 
-const EmptyWishPage = () => {
+const EmptyWishPage = ({title}) => {
 
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center px-4 sm:px-6 lg:px-8">
@@ -15,9 +15,17 @@ const EmptyWishPage = () => {
           className="text-center"
         >
           <FaHeart className="mx-auto h-12 w-12 text-gray-400" aria-hidden="true" />
-          <h2 className="mt-6 text-3xl font-extrabold text-gray-900">Your cart is empty</h2>
+          <h2 className="mt-6 text-3xl font-extrabold text-gray-900">
+            {
+              title=="Property" ? "You don't published any property" :"our cart is empty"
+            }
+            
+          </h2>
           <p className="mt-2 text-sm text-gray-600">
-            Looks like you haven't added any items to your cart yet.
+            {
+              title=="Property" ? "Go to your profile to published you property" :"Looks like you haven't added any items to your cart yet."
+            }
+            
           </p>
         </motion.div>
 

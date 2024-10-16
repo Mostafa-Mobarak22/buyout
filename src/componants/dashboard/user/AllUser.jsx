@@ -96,7 +96,7 @@ usersData.map((value,key)=>{
             <td className="px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
                 <div className="inline-flex items-center gap-x-3">
                     <div className="flex items-center gap-x-2">
-                        <img className="object-cover w-10 h-10 rounded-full" src={!value.image ? img : value.image} alt=""/>
+                        <img className="object-cover w-10 h-10 rounded-full" src={value.image ? "http://127.0.0.1:8000"+value.image : img} alt=""/>
                         <div className='flex'>
                             <h2 className="font-medium text-gray-950 ">{value.user_name}</h2>
                             {value.is_member && <i class="fi fi-ss-badge-check ps-1 text-green-500"></i>}

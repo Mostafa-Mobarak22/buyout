@@ -1,6 +1,7 @@
 import React from 'react'
 import {useFormik} from 'formik'
 import crat2 from '../../assets/logo-no-background.png'
+import profile from '../../assets/aa73wo5kh.webp'
 import * as Yup from 'yup'
 import axios from 'axios'
 import { useEffect, useState } from 'react'
@@ -91,22 +92,22 @@ return <>
 
     {
         !profileData ? <Loading /> : 
-<div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
-    <div className="w-20 h-20 rounded-full mx-auto hover:bg-[#31C48D] shadow-lg">
-        <img className='w-100 rounded-full hover:scale-150 duration-150' alt="Navbar component" src={"http://127.0.0.1:8000"+profileData.image} />
+<div className="flex flex-col justify-center px-6 py-14 lg:px-8">
+    <div className="w-20 h-20 grid rounded-full mx-auto hover:scale-150 duration-150 shadow-lg">
+        <img className='w-100 rounded-full m-auto ' alt="Navbar component" src={profileData.image?"http://127.0.0.1:8000"+profileData.image : profile} />
     </div>
 
-    <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-lg">
+    <div className="mt-10 sm:mx-auto sm:max-w-[46rem] sm:w-full">
         <form className="space-y-6" onSubmit={handleSubmit} encType='multipart/form-data'>
-            <div className="flex gap-x-2">
-                <div className='flex-auto'>
+            <div className="flex flex-col md:flex-row mt-3 gap-x-2">
+                <div className='flex-auto '>
                     <label htmlFor="user_name" className="block text-sm font-medium leading-6 text-gray-900">User Name</label>
                     <div className="mt-2">
                         <input onBlur={handleBlur} onChange={handleChange} id="user_name" value={values.user_name} name="user_name" type="text" autoComplete="user_name" placeholder="User Name" className="block w-full focus:outline-[#398378] rounded-md border-2 p-2 text-gray-950 font-2xl shadow-sm placeholder:text-gray-500 sm:text-sm bg-white"/>
                         {touched.user_name && errors.user_name && <p className='text-red-500'>{errors.user_name}</p>}
                     </div>
                 </div>
-                <div className='flex-auto'>
+                <div className='flex-auto '>
                     <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">Email</label>
                     <div className="mt-2">
                         <input onBlur={handleBlur} onChange={handleChange} id="email" value={values.email} name="email" type="email" autoComplete="email" placeholder='Email' className="block w-full focus:outline-[#398378] rounded-md border-2 p-2 text-gray-950 bg-white font-2xl shadow-sm placeholder:text-gray-500 sm:text-sm"/>
@@ -136,7 +137,7 @@ return <>
                     </div>
                 </div>
             </div>
-            <div className="flex gap-x-2">
+            <div className="flex gap-x-2 flex-col md:flex-row">
                 <div className='flex-auto'>
                     <label htmlFor="city" className="block text-sm font-medium leading-6 text-gray-900">City</label>
                     <div className="mt-2">
@@ -152,7 +153,7 @@ return <>
                     </div>
                 </div>
             </div>
-            <div className="flex gap-x-2">
+            <div className="flex gap-x-2 flex-col md:flex-row">
                 <div className='flex-auto'>
                     <label htmlFor="phone" className="block text-sm font-medium leading-6 text-gray-900">phone</label>
                     <div className="mt-2">

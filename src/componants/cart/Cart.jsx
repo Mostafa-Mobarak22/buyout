@@ -137,7 +137,7 @@ return <>
             type="button"
             data-ripple-light="true"
         >
-            <i class="fa-solid fa-info"></i>
+            <Link to={"/propertypage/"+properties.id}><i class="fa-solid fa-info"></i></Link>
         </button>
         <button
             className="block w-full select-none rounded-lg bg-[#398378] text-center align-middle font-sans text-2xl font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-[#398378] hover:bg-[#31C48D] focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"

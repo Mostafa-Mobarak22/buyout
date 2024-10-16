@@ -1,14 +1,16 @@
 import axios from 'axios'
 import React, { useEffect } from 'react'
 import { useState } from 'react'
+import profile from '../../assets/profile-photo.jpg'
 import { Link, useNavigate } from 'react-router-dom'
 import Loading from '../loading/Loading'
 import area from '../../assets/area.png'
 import Slider from "react-slick"
 import Swal from 'sweetalert2'
+import EmptyWishPage from '../wish list/emptywishlist'
 export default function MyProperty() {
     const [showModal, setShowModal] = useState(false);
-    const [properties,setProperties] = useState(null)
+    const [properties,setProperties] = useState([])
     var settings = {
         dots: true,
         infinite: true,
@@ -25,6 +27,7 @@ export default function MyProperty() {
     async function getProperty(){
         const { data } = await axios.get("http://127.0.0.1:8000/property/user/"+localStorage.getItem("user_id")+"/")
         setProperties(data)
+        console.log(data[0].user_id.image)
     }
     async function deleteProperty(id){
         const { data } = await axios.delete("http://127.0.0.1:8000/property/properties/"+id+"/")
@@ -52,8 +55,9 @@ export default function MyProperty() {
       });
     } 
   return <>
+  {console.log(properties==false)}
 {
-    !properties ? <Loading/> : <div className='container mt-24'>
+    properties == false ? <EmptyWishPage title = "Property"/> : <div className='container mt-24'>
 <div className='grid sm:ms-5 md:grid-cols-2 xl:grid-cols-3 gap-x-3 gap-y-4'>
 {
         properties.map((properties,index)=>{
@@ -79,7 +83,7 @@ export default function MyProperty() {
                     
                                     </div>
                                     <div className='w-12'>
-                                        <img src={properties.user_id.image ? properties.user_id.image : profile } className='rounded-full' alt="logo" />
+                                        <img src={properties.user_id.image ? "http://127.0.0.1:8000"+properties.user_id.image : profile } className='rounded-full' alt="logo" />
                                     </div>
                                 </div>
                     

@@ -55,7 +55,7 @@ export default function WishList() {
     }
   return <>
   {
-    properties==false ? <EmptyWishPage/> : <div className='container pt-10'>
+    properties==false ? <EmptyWishPage title="Cart"/> : <div className='container pt-10'>
     <div className='grid sm:ms-5 md:grid-cols-2 xl:grid-cols-3 gap-x-3 gap-y-4'>
         {
                             properties.map((properties)=>{

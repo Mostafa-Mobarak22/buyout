@@ -5,9 +5,10 @@ import { useEffect, useState } from 'react'
 import Loading from '../loading/Loading'
 import { toast, Bounce, ToastContainer } from 'react-toastify'
 import {useFormik} from 'formik'
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 const AddPropertyForm = () => {
     const {id} = useParams()
+    const navigate = useNavigate()
     const [allgover ,setAllgover] = useState([
         'Cairo', 
         'Alexandria', 
@@ -38,19 +39,34 @@ const AddPropertyForm = () => {
         'Damietta'
     ])
     const [typeProperty,setTypeProperty] = useState([
-        'Office',
-        'Retail',
-        'Restaurant', 
-        'Pharmacy', 
-        'Clinic',
-        'Commercial Building',
-        'Commercial Land', 
-        'Agricultural', 
-        'Warehouse', 
-        'Garage',
-        'Other Commercial', 
-    
-            
+        "Office" ,
+        "Retail" , 
+        "Restaurant" , 
+        "Pharmacy" , 
+        "Clinic" , 
+        "Commercial Building" , 
+        "Commercial Land" , 
+        "Agricultural" , 
+        "Warehouse" , 
+        "Garage" , 
+        "Showroom" , 
+        "Co-Working Space" , 
+        "Medical Facility" , 
+        "Other Commercial" , 
+        "Apartment" , 
+        "Villa" , 
+        "Duplex" , 
+        "Penthouse" , 
+        "Chalet" , 
+        "Townhouse" , 
+        "Twin House" , 
+        "Room" ,
+        "Cabin" , 
+        "Roof" ,
+        "iVilla" ,
+        "Hotel Apartment" , 
+        "Residential Land" ,
+        "Other Residential" ,
     ])
     let { handleSubmit,values,handleChange,errors,touched,handleBlur,setValues} = useFormik({
         initialValues:{
@@ -95,7 +111,7 @@ const AddPropertyForm = () => {
             },
 
         });    
-        toast.success('Your Property Added', {
+        toast.success('Your Property Under Review', {
             position: "bottom-center",
             autoClose: 2500,
             hideProgressBar: false,
@@ -106,6 +122,7 @@ const AddPropertyForm = () => {
             theme: "light",
             transition: Bounce,
             });
+            navigate(`/myproperty`)
     }
 
     return <>
