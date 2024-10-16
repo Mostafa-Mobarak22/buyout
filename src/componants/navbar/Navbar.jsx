@@ -26,12 +26,15 @@ export default function Navbar() {
     useEffect(()=>{
         getUser()
     },[])
+    function navToggle(){
+        document.getElementById("navdropdown").classList.toggle("hidden")
+      }
 return <>
 <div className="navbar bg-[#398378] px-5 fixed top-0 z-40">
     <div className="flex w-40">
         <Link to={"/"}><img className='w-100' src={logo}/></Link>
     </div>
-    <div>
+    <div className='hidden lg:flex'>
         <ul className='flex gap-5 text-lg text-white'>
             <li>
                 <NavLink to={"/"}>Home</NavLink>
@@ -47,7 +50,8 @@ return <>
             </li>
         </ul>
     </div>
-    <div className="flex-none">
+    <div className="flex-none relative">
+    
 {        token && <div className="dropdown dropdown-end px-3">
             <div tabIndex={0} role="button" className="w-10 h-10 grid pt-2 hover:text-[#31C48D]">
                 <div className="indicator relative m-auto">
@@ -90,6 +94,23 @@ return <>
                     
                 </>}
             </ul>
+        </div>
+        <button onClick={()=>{navToggle()}} className='mx-3 px-2 text-2xl border-1 rounded-md border-gray-400 hover:border-black lg:hidden '><i class="fa-solid fa-bars"></i></button>
+        <div id='navdropdown' className='fixed hidden  top-[80px] right-5 bg-[#398378] rounded-md'>
+        <ul tabIndex={0} className="menu menu-sm dropdown-content bg-[#398378] rounded-box z-[1] mt-3 w-52 p-2 shadow">
+            <li className='text-white font-semibold text-decoration-none'>
+                <NavLink to={"/"}>Home</NavLink>
+            </li>
+            <li className='text-white font-semibold text-decoration-none'>
+                <NavLink to={"/properties"}>Properties</NavLink>
+            </li>
+            <li className='text-white font-semibold text-decoration-none'>
+                <NavLink to={"/search"}>Search</NavLink>
+            </li>
+            <li className='text-white font-semibold text-decoration-none'>
+                <NavLink to={"/contactus"}>ContactUs</NavLink>
+            </li>
+        </ul>
         </div>
     </div>
 </div>
