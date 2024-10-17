@@ -78,11 +78,12 @@ const AddPropertyForm = () => {
             "bath":"",
             "governorate":"Cairo",
             "city":"",
+            "is_sale" :"Sale",
             "country":"Egypt",
             "street":"",
             "area":"",
             "image":"",
-            "commercial":"Retail",
+            "commercial":"Apartment",
             "location":"",
             "user":id
         },
@@ -92,6 +93,7 @@ const AddPropertyForm = () => {
             title:Yup.string().required("title is required").min(5,"title must be more than 5 character").max(100,"title must be less than 100 character"),
             location:Yup.string().required("Should write Location Your Property" ).min(10,"location must be more than 10 character").max(150,"location must be less than 150 character"),
             description:Yup.string().required("Should write Description for Your Property" ),
+            is_sale:Yup.string().required("Should choose Sale or Rent" ),
             property_type:Yup.string().required("Choose usage of Property"),
             bed:Yup.number().test("maxDigits","bed field must have exactly 1 digits",(bed) => String(bed).length === 1),
             bath:Yup.number().test("maxDigits","bath field must have exactly 1 digits",(bath) => String(bath).length === 1),
@@ -128,7 +130,6 @@ const AddPropertyForm = () => {
     return <>
     <h2 className='text-3xl pt-5 text-center font-bold text-[#31C48D]'>Add Your Property</h2>
 <div className="flex min-h-full flex-col justify-center px-6 py-6 lg:px-8">
-    
     <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-[46rem]">
         <form className="space-y-6" onSubmit={handleSubmit} encType='multipart/form-data'>
             <div>
@@ -153,7 +154,17 @@ const AddPropertyForm = () => {
                         </div>
                     </div>
                 </div>
-                <div className="grid md:grid-cols-2 sm:grid-cols-1 gap-x-2 mt-4">
+                <div className="grid md:grid-cols-3 sm:grid-cols-1 gap-x-2 mt-4">
+                    <div className='flex-auto '>
+                        <label htmlFor="is_sale" className="block text-sm font-medium leading-6 text-gray-900">Sale or Rent </label>
+                        <div className="mt-1">
+                            <select id="is_sale" onBlur={handleBlur} onChange={handleChange} name='is_sale' class="block w-full focus:outline-[#398378] rounded-md border-2 p-2 text-gray-950 bg-white font-2xl shadow-sm placeholder:text-gray-500 sm:text-sm">
+                                    <option >Sale</option>
+                                    <option >Rent</option>
+                            </select>
+                            {touched.is_sale && errors.is_sale && <p className='text-red-500'>{errors.is_sale}</p>}
+                        </div>
+                    </div>
                     <div className='flex-auto '>
                         <label htmlFor="property_type" className="block text-sm font-medium leading-6 text-gray-900">Property Usage</label>
                         <div className="mt-1">

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import './landing.css'
 import ContactUs from '../ContactUs/ContactUs'
 import Cart from '../cart/Cart'
+import axios from 'axios'
 export default function Landing() {
   const [bath,setBath] = useState()
   function bathToggle(){
@@ -106,6 +107,14 @@ export default function Landing() {
     const newValue = e.target.value.replace(/[^\d]/g, '');
     setMaxarea(newValue);
   };
+  const [properties,setProperties] = useState([])
+  async function newest_properties(){
+    const {data} = await axios.get("http://127.0.0.1:8000/property/newest/")
+    setProperties(data)
+  }
+  useEffect(() => {
+    newest_properties()
+  }, [])
   return <>
 <div className='landing h-screen relative'>
   <div className='bg-black/50 w-full h-full'>
@@ -283,11 +292,19 @@ export default function Landing() {
 </div>
 <div className='w-screen'>
   <div className='container px-6 py-10'>
-  <h1 class="text-2xl font-semibold text-center text-gray-800 capitalize lg:text-3xl">Newest Property </h1>
+    <h1 class="text-2xl font-semibold text-center text-gray-800 capitalize lg:text-3xl">Newest Property </h1>
+    <p class="max-w-2xl mx-auto my-6   text-center text-gray-500 ">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo incidunt ex placeat modi magni quia error alias, adipisci rem similique, at omnis eligendi optio eos harum.
+    </p>
+    <div className='grid sm:ms-5 md:grid-cols-2 xl:grid-cols-3 gap-x-3 gap-y-4'>
+    {
+      properties?.map((property,index)=>{
 
-  <p class="max-w-2xl mx-auto my-6   text-center text-gray-500 ">
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo incidunt ex placeat modi magni quia error alias, adipisci rem similique, at omnis eligendi optio eos harum.
-  </p>
+        return <Cart properties={property}/>
+
+      })
+    }
+    </div>
   </div>
 </div>
 <ContactUs/>

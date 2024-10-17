@@ -36,6 +36,17 @@ const EditProperty = () => {
             console.error("Error fetching profile data", error);
         }
     }
+    async function confirmProperty(){
+        if(profileData.is_published){
+            const {data} = await axios.post("http://127.0.0.1:8000/user/confirm/",{
+                name:profileData.user_id.user_name,
+                email:profileData.user_id.email,
+                massage:"Your property Is Published"
+            })
+            console.log(data);            
+        }
+
+    }
     const [allgover ,setAllgover] = useState([
         'Cairo', 
         'Alexandria', 
@@ -118,6 +129,7 @@ const EditProperty = () => {
             theme: "light",
             transition: Bounce,
             });      
+            confirmProperty()
     }
 
     return <>

@@ -9,7 +9,7 @@ export default function Navbar() {
     const { token,setToken,id,setId } = useContext(tokenContext)
     const [img,setImg] = useState(null)
     const [countproperty,setcountproperty] = useState(0)
-    const [user,setuser] = useState()
+    const [user,setuser] = useState(null)
     const navigate = useNavigate()
     setToken(localStorage.getItem("user_token"))
     setId(localStorage.getItem("user_id"))
@@ -90,7 +90,13 @@ return <>
                     </li>
                     <li className="hover:bg-[#398378] hover:shadow"><Link to='/myproperty' className='text-white font-semibold text-decoration-none'>My Property</Link></li>  
                     {
-                        user && <li className="hover:bg-[#398378] hover:shadow"><Link to={user.is_member ? "/addproperty/"+id : "/pricing/"+id+"/"+user.user_name} className='text-white font-semibold text-decoration-none'>Add Property</Link></li>
+                        !user?.is_member &&  <li className="hover:bg-[#398378] hover:shadow"><Link to={"/pricing/"+id+"/"+user?.user_name} className='text-white font-semibold text-decoration-none'>Subscripe</Link></li>
+                    }   
+                    {
+                        !user?.is_admin &&  <li className="hover:bg-[#398378] hover:shadow"><Link to={"/admin"} className='text-white font-semibold text-decoration-none'>DAsshboard</Link></li>
+                    } 
+                    {
+                        <li className="hover:bg-[#398378] hover:shadow"><Link to={user?.is_member ? "/addproperty/"+id : "/pricing/"+id+"/"+user?.user_name} className='text-white font-semibold text-decoration-none'>Add Property</Link></li>
                     }
                     <li className='hover:bg-[#398378] hover:shadow'><button  onClick={()=>logout()} className='text-white font-semibold'>Logout</button></li>              
                 </>:

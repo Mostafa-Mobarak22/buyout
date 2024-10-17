@@ -146,14 +146,15 @@ export default function MyProperty() {
                             >
                                 
                             </button> */}
-                            <button
-                                className="block w-1/4 select-none rounded-lg bg-[#398378] py-1 text-center align-middle font-sans text-2xl font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-[#398378] hover:bg-[#31C48D] focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-                                type="button"
-                                data-ripple-light="true"
-                                onClick={() => setShowModal(true)}
-                            >
-                                <i className="fa-solid fa-envelope"></i>
-                            </button>
+                            <Link className='block w-1/4' to={"/propertypage/"+properties.id}>
+                                <button
+                                    className="block w-full py-2 select-none rounded-lg bg-[#398378] text-center align-middle font-sans text-2xl font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-[#398378] hover:bg-[#31C48D] focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                                    type="button"
+                                    data-ripple-light="true"
+                                >
+                                    <i class="fa-solid fa-info"></i>
+                                </button>
+                            </Link>
                         </div>
                     </div>
             
