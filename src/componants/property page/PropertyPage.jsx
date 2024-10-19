@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import Slider from "react-slick"
-import area1 from '../../assets/profile-photo.jpg'
+import profile from '../../assets/profile-photo.jpg'
 import area from '../../assets/area.png'
 import Cart from '../cart/Cart'
 import * as Yup from 'yup'
@@ -12,6 +12,7 @@ export default function PropertyPage() {
     const [showModal, setShowModal] = useState(false);
     const [property, setProperty] = useState(null);
     const [sameproperty, setSameProperty] = useState(null);
+    const [samillerProperty, setSamillerProperty] = useState(null);
     const [success, setSuccess] = useState("");
     let { handleSubmit,values,handleChange,errors,touched,handleBlur} = useFormik({
         initialValues:{
@@ -44,20 +45,22 @@ export default function PropertyPage() {
     async function getProprety(){
         const { data } = await axios.get(`http://127.0.0.1:8000/property/properties/${id}/`)
         setProperty(data)
+        console.log(data)
+        sameProprety(data.commercial)
 
     }
-    async function sameProprety(){
-        const { data } = await axios.get(`http://127.0.0.1:8000/property/properties`)
-
-        setSameProperty(data.filter((e)=>{return e.commercial==property.commercial}))
+    async function sameProprety(commercial){
+        const { data } = await axios.post(`http://127.0.0.1:8000/property/same/`,{
+            commercial : commercial
+        })
+        setSamillerProperty(data)
     }
     useEffect(() => {
         getProprety()
-        sameProprety()
     }, [])
   return <>
 {!(property) ? <Loading/>:
- <div className="container pt-5">
+<div className="container pt-5">
     <div className='grid grid-cols-3 mb-10 gap-4 mx-auto'>
         <div className='col-span-3 lg:col-span-2 h-50  '>
             <Slider {...settings} className='shadow-2xl '>
@@ -91,8 +94,9 @@ export default function PropertyPage() {
     </div>
     <div className='grid grid-cols-3 mt-24 mx-auto mb-40 gap-4'>
         <div className='col-span-3 lg:col-span-2 '>
-            <div className='flex md:flex-row flex-col justify-between pb-3'>
+            <div className='flex md:flex-row flex-col justify-between items-center pb-3'>
                 <div>
+                    <span className='text-gray-500 ps-3'>{property.commercial}</span>
                     <h1 className='font-extrabold text-4xl p-3'>{property.price.toLocaleString('en-EG', { style: 'currency', currency: 'EGP' })}</h1>
                 </div>
                 <div className='flex gap-3'>
@@ -185,11 +189,11 @@ export default function PropertyPage() {
                     </div>
                 </div>
             </div>
-            <div className='pt-1'>
+            <div className='pt-5'>
             <h2 className='text-2xl font-bold '>More available in the same type</h2>
             <div className='pt-5 grid grid-cols-2 gap-5'>
             {
-                        sameproperty?.map((property)=>{
+                        samillerProperty?.map((property)=>{
                         
                             return  <>
                             <div className='md:col-span-1 col-span-2'>
@@ -202,14 +206,14 @@ export default function PropertyPage() {
         </div>
 
         </div>
-        <div className='lg:flex lg:flex-col h-40 col-span-3 lg:col-span-1  rounde-lg shadow-lg sticky top-0'>
-            <div className='flex align-items-center justify-around '>
-                <div className='h-20 w-20 rounded-sm'>
-                    <img src={area1} alt="" />
+        <div className='lg:flex lg:flex-col h-40 col-span-3 lg:col-span-1 rounde-lg shadow-lg sticky top-20'>
+            <div className='flex pt-3 align-items-center justify-around '>
+                <div className='h-20 w-20 rounded-full'>
+                    <img className='w-full rounded-full' src={property.user_id["image"] ? property.user_id["image"] : profile} alt="" />
                 </div>
-                <h2>mostafa mobarak</h2>
+                <h2>{property.user_id["user_name"]}</h2>
             </div>
-            <div className="p-3 pt-3 flex gap-1">
+            <div className=" p-3 flex gap-1">
                 <button
                     className="block w-full select-none rounded-lg bg-[#398378] py-1 text-center align-middle font-sans text-2xl font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-[#398378] hover:bg-[#31C48D] focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
                     type="button"
@@ -218,21 +222,16 @@ export default function PropertyPage() {
                 >
                     <i className="fa-solid fa-envelope"></i>
                 </button>
+                <a className="block w-full select-none rounded-lg bg-[#398378] text-center align-middle font-sans text-2xl font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-[#398378] hover:bg-[#31C48D] focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" href={"https://api.whatsapp.com/send/?phone=2"+property.user_id["phone"]+"&text=Hi%2C+I+am+interested+in+your+property+on+Bayut.+Link%3A+https%3A%2F%2Fwww.bayut.eg%2Fen%2Fpm%2F501092421%2F99e8c190-a0fa-40c3-bc30-d188436d5cf7&type=phone_number&app_absent=0"} target='_blank'>
                 <button
-                    className="block w-full select-none rounded-lg bg-[#398378] text-center align-middle font-sans text-2xl font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-[#398378] hover:bg-[#31C48D] focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-                    type="button"
-                    data-ripple-light="true"
-                >
-                    <i class="fa-solid fa-info"></i>
-                </button>
-                <button
-                    className="block w-full select-none rounded-lg bg-[#398378] text-center align-middle font-sans text-2xl font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-[#398378] hover:bg-[#31C48D] focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                    className="block w-full pt-1"
                     type="button"
                     data-ripple-light="true"
                     
                 >
-                    <a href="https://api.whatsapp.com/send/?phone=201093059405&text=Hi%2C+I+am+interested+in+your+property+on+Bayut.+Link%3A+https%3A%2F%2Fwww.bayut.eg%2Fen%2Fpm%2F501092421%2F99e8c190-a0fa-40c3-bc30-d188436d5cf7&type=phone_number&app_absent=0" target='_blank'><i className="fa-brands fa-whatsapp"></i></a>
+                    <i className="fa-brands fa-whatsapp"></i>
                 </button>
+                </a>
             </div>
         </div>
 

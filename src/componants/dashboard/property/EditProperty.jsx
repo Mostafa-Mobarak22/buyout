@@ -28,8 +28,10 @@ const EditProperty = () => {
         try {
             await axios.get("http://127.0.0.1:8000/property/properties/"+id+"/", {
             }).then((data)=>{
+                console.log(data.data)
                 setProfileData(data.data);
                 setIsLoading(false)
+                
             })
         } catch (error) {
             setIsLoading(true)
@@ -42,8 +44,7 @@ const EditProperty = () => {
                 name:profileData.user_id.user_name,
                 email:profileData.user_id.email,
                 massage:"Your property Is Published"
-            })
-            console.log(data);            
+            })           
         }
 
     }
@@ -77,27 +78,45 @@ const EditProperty = () => {
         'Damietta'
     ])
     const [typeProperty,setTypeProperty] = useState([
+        'Apartment',
+        'Villa',
+        'Duplex', 
+        'Penthouse', 
+        'Chalet', 
+        'Townhouse', 
+        'Twin House', 
+        'Room',
+        'Cabin',
+        'Roof',
+        'iVilla', 
+        'Hotel Apartment',
+        'Residential Land', 
+        'Other Residential', 
         'Office',
         'Retail',
-        'Restaurant', 
-        'Pharmacy', 
+        'Restaurant',
+        'Pharmacy',
         'Clinic',
-        'Commercial Building',
-        'Commercial Land', 
+        "Land",
         'Agricultural', 
         'Warehouse', 
         'Garage',
+        'Showroom',
+        'Commercial Land', 
+        'Commercial Building',
+        'Co-Working Space',
+        'Medical Facility',
         'Other Commercial', 
-    
             
     ])
-    let { handleSubmit,values,handleChange,errors,touched,handleBlur,setValues} = useFormik({
+    let { handleSubmit,values,handleChange,errors,touched,handleBlur} = useFormik({
         initialValues:{
             "title":profileData?.title,
             "description":profileData?.description,
             "property_type":profileData?.property_type,
             "price":profileData?.price,
             "bed":profileData?.bed,
+            "is_sale":profileData?.is_sale,
             "bath":profileData?.bath,
             "governorate":profileData?.governorate,
             "city":profileData?.city,
@@ -113,6 +132,7 @@ const EditProperty = () => {
         onSubmit: editProperty,
     })
     async function editProperty(){
+        console.log(values)
         let { data } = await axios.patch("http://127.0.0.1:8000/property/properties/"+id+"/",values, {
             headers: {
                 'Content-Type': 'multipart/form-data',
@@ -160,8 +180,24 @@ const EditProperty = () => {
                         </div>
                     </div>
                 </div>
-                <div className="grid md:grid-cols-2 sm:grid-cols-1 gap-x-2 mt-3">
-                    <div className='flex-auto'>
+                <div className="grid md:grid-cols-3 sm:grid-cols-1 gap-x-2 mt-4">
+                    <div className='flex-auto '>
+                        <label htmlFor="is_sale" className="block text-sm font-medium leading-6 text-gray-900">Sale or Rent </label>
+                        <div className="mt-1">
+                            <select id="is_sale" onBlur={handleBlur} onChange={handleChange} name='is_sale' class="block w-full focus:outline-[#398378] rounded-md border-2 p-2 text-gray-950 bg-white font-2xl shadow-sm placeholder:text-gray-500 sm:text-sm">
+                                    {
+                                        profileData.is_sale == "Sale" ? <option selected>Sale</option> :<option >Sale</option> 
+                                    
+                                    }
+                                    {
+                                        profileData.is_sale == "Rent" ? <option selected>Rent</option> :<option >Rent</option> 
+                                    
+                                    }
+                            </select>
+                            {touched.is_sale && errors.is_sale && <p className='text-red-500'>{errors.is_sale}</p>}
+                        </div>
+                    </div>
+                    <div className='flex-auto '>
                         <label htmlFor="property_type" className="block text-sm font-medium leading-6 text-gray-900">Property Usage</label>
                         <div className="mt-1">
                             <select id="property_type" onBlur={handleBlur} onChange={handleChange} name='property_type' class="block w-full focus:outline-[#398378] rounded-md border-2 p-2 text-gray-950 bg-white font-2xl shadow-sm placeholder:text-gray-500 sm:text-sm">
@@ -171,13 +207,18 @@ const EditProperty = () => {
                             {touched.property_type && errors.property_type && <p className='text-red-500'>{errors.property_type}</p>}
                         </div>
                     </div>
-                    <div className='flex-auto'>
+                    <div className='flex-auto '>
                         <label htmlFor="commercial"  className="block text-sm font-medium leading-6 text-gray-900">Property Type</label>
                         <div className="mt-1">
                             <select  id="commercial" onBlur={handleBlur} onChange={handleChange}  name='commercial' class="block w-full focus:outline-[#398378] rounded-md border-2 p-2 text-gray-950 bg-white font-2xl shadow-sm placeholder:text-gray-500 sm:text-sm">
                             {
                                         typeProperty.map((name,id)=>{
-                                            return <option key={id}>{name}</option>
+                                            if(name==profileData.commercial){
+                                                return <option key={id} selected>{name}</option>
+                                            }
+                                            else{
+                                                return <option key={id}>{name}</option>
+                                            }
                                         })
                                     }
                             </select>

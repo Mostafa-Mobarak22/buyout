@@ -4,21 +4,21 @@ import ContactUs from '../ContactUs/ContactUs'
 import Cart from '../cart/Cart'
 import axios from 'axios'
 export default function Landing() {
-  const [bath,setBath] = useState()
+  const [bath,setBath] = useState("")
   function bathToggle(){
     document.getElementById("bath").classList.toggle("hidden")
   }
   function bathValue(value){
     setBath(value)
   }
-  const [bed,setBed] = useState()
+  const [bed,setBed] = useState("")
   function bedToggle(){
     document.getElementById("bed").classList.toggle("hidden")
   }
   function bedValue(value){
     setBed(value)
   }
-  const [buy,setBuy] = useState("sale")
+  const [buy,setBuy] = useState("Sale")
   function buyValue(value){
     setBuy(value)
   }
@@ -82,8 +82,8 @@ export default function Landing() {
   function priceToggle(){
     document.getElementById("price").classList.toggle("hidden")
   }
-  const [minprice, setMinPrice] = useState(0)
-  const [maxprice, setMaxPrice] = useState()
+  const [minprice, setMinPrice] = useState("")
+  const [maxprice, setMaxPrice] = useState("")
 
   const handleMinPrice = (e) => {
     const newValue = e.target.value.replace(/[^\d]/g, '');
@@ -96,8 +96,8 @@ export default function Landing() {
   function areaToggle(){
     document.getElementById("area").classList.toggle("hidden")
   }
-  const [minarea, setMinarea] = useState(0)
-  const [maxarea, setMaxarea] = useState()
+  const [minarea, setMinarea] = useState("")
+  const [maxarea, setMaxarea] = useState("")
 
   const handleMinarea = (e) => {
     const newValue = e.target.value.replace(/[^\d]/g, '');
@@ -115,6 +115,25 @@ export default function Landing() {
   useEffect(() => {
     newest_properties()
   }, [])
+  async function findProperty(){
+    const {data} = await axios.post("http://127.0.0.1:8000/property/search/",
+      {
+        bath:bath,
+        bed:bed,
+        maxarea:maxarea,
+        minarea:minarea,
+        minprice:minprice,
+        maxprice:maxprice,
+        buy:buy,
+        residential:residential,
+        commercial:commercial,
+        usage:usage,
+        search:document.getElementById("search-bar").value,
+        
+      }
+    )
+    console.log(data)
+  }
   return <>
 <div className='landing h-screen relative'>
   <div className='bg-black/50 w-full h-full'>
@@ -139,7 +158,7 @@ export default function Landing() {
   <div className='bg-black/50 mt-10 translate-x-[50%] p-3 flex flex-col translate-y-[-50%] rounded-xl absolute top-[50%] right-[50%] '>
     <div className='flex flex-col sm:flex-row gap-3 mb-3'>
       <div>
-        <button id="buydropdown"   onClick={()=>{buyToggle()}} class="text-gray-700 w-[150px] relative bg-white border-2 border-gray-500 focus:bg-[#398378] focus:border-[#398378] focus:outline-none font-medium rounded-lg text-sm px-3 py-2.5 text-center inline-flex items-center  " type="button"> {buy=="sale"?"Sale":"Rent"}
+        <button id="buydropdown"   onClick={()=>{buyToggle()}} class="text-gray-700 w-[150px] relative bg-white border-2 border-gray-500 focus:bg-[#398378] focus:border-[#398378] focus:outline-none font-medium rounded-lg text-sm px-3 py-2.5 text-center inline-flex items-center  " type="button"> {buy=="Sale"?"Sale":"Rent"}
           <svg class="w-2.5 h-2.5 absolute top-4 right-4 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
           </svg>
@@ -147,10 +166,10 @@ export default function Landing() {
         <div id="buy"  class="z-10 mt-1 absolute hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-24">
           <ul class="py-1 text-sm text-gray-700 ">
             <li >
-              <button onClick={()=>{buyValue("rent");buyToggle()}} class="block text-gray-700 px-1 w-full py-2 hover:bg-gray-200 ">Rent</button>
+              <button onClick={()=>{buyValue("Rent");buyToggle()}} class="block text-gray-700 px-1 w-full py-2 hover:bg-gray-200 ">Rent</button>
             </li>
             <li >
-              <button onClick={()=>{buyValue("sale");buyToggle()}} class="block px-1 w-full py-2 hover:bg-gray-200 text-gray-700">Sale</button>
+              <button onClick={()=>{buyValue("Sale");buyToggle()}} class="block px-1 w-full py-2 hover:bg-gray-200 text-gray-700">Sale</button>
             </li>
           </ul>
         </div>
@@ -168,7 +187,7 @@ export default function Landing() {
         <div id="bed"  class="z-10 mt-1 absolute hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-24">
           <ul class="py-1 text-sm text-gray-700 ">
           {
-              [1,2,3,4,5,6,7,8,9].map((item, index) => (
+              [0,1,2,3,4,5,6,7,8,9].map((item, index) => (
                 <li key={index}>
                   <button  onClick={()=>{bedValue(item);bedToggle()}} class="block px-2 w-full text-gray-700 py-2 hover:bg-gray-200 ">{item}</button>
                 </li>
@@ -219,7 +238,7 @@ export default function Landing() {
         <div id="bath"  class="z-10 mt-1 absolute hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-24">
           <ul class="py-1 text-sm text-gray-700 ">
           {
-              [1,2,3,4,5,6,7,8,9].map((item, index) => (
+              [0,1,2,3,4,5,6,7,8,9].map((item, index) => (
                 <li key={index}>
                   <button  onClick={()=>{bathValue(item);bathToggle()}} class="block px-2 w-full text-gray-700 py-2 hover:bg-gray-200 ">{item}</button>
                 </li>
@@ -285,7 +304,7 @@ export default function Landing() {
             </div>
           </div>
       </div> 
-      <button className='py-2 px-4 w-[187px] text-white bg-[#398378] rounded-lg font-medium hover:bg-[#31C48D]'><i class="fa-solid fa-magnifying-glass"></i> Search</button>
+      <button onClick={()=>{findProperty()}} className='py-2 px-4 w-[187px] text-white bg-[#398378] rounded-lg font-medium hover:bg-[#31C48D]'><i class="fa-solid fa-magnifying-glass"></i> Search</button>
     </div>
   </div>      
   </div>

@@ -93,7 +93,7 @@ return <>
                         !user?.is_member &&  <li className="hover:bg-[#398378] hover:shadow"><Link to={"/pricing/"+id+"/"+user?.user_name} className='text-white font-semibold text-decoration-none'>Subscripe</Link></li>
                     }   
                     {
-                        !user?.is_admin &&  <li className="hover:bg-[#398378] hover:shadow"><Link to={"/admin"} className='text-white font-semibold text-decoration-none'>DAsshboard</Link></li>
+                        !user?.is_admin &&  <li className="hover:bg-[#398378] hover:shadow"><Link to={"/admin"} className='text-white font-semibold text-decoration-none'>Admin Board</Link></li>
                     } 
                     {
                         <li className="hover:bg-[#398378] hover:shadow"><Link to={user?.is_member ? "/addproperty/"+id : "/pricing/"+id+"/"+user?.user_name} className='text-white font-semibold text-decoration-none'>Add Property</Link></li>
