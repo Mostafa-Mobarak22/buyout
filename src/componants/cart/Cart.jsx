@@ -48,8 +48,8 @@ return <>
     <div className="rounded-xl overflow-hidden rounded-b-none bg-blue-gray-500 bg-clip-border text-white shadow-md shadow-blue-gray-500/40">
         <Slider {...settings}>
             {
-                [1,1,1,1,1].map((e)=>{
-                    return <img className='w-100 h-[300px]' src={properties.image.includes("http://127.0.0.1:8000")?properties.image:"http://127.0.0.1:8000"+properties.image} alt="ui/ux review check"/>
+                properties.images.map((image,index)=>{
+                    return <img key={index} className='w-100 h-[300px]' src={"http://127.0.0.1:8000"+image} alt="ui/ux review check"/>
                 })
             }
         </Slider>

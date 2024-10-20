@@ -299,8 +299,8 @@ const EditProperty = () => {
                     <label for="image" class="block text-sm mt-3 mb-5 font-medium leading-6 text-gray-900">Image</label>
                     <Slider {...settings}>
                         {
-                            [1,1,1,1,1].map((e)=>{
-                                return <img className='w-100' src={profileData?.image} alt="ui/ux review check"/>
+                            profileData?.images.map((image,index)=>{
+                                return <img key={index} className='w-100' src={"http://127.0.0.1:8000"+image} alt="ui/ux review check"/>
                             })
                         }
                     </Slider>

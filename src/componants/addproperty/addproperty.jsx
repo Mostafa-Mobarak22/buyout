@@ -39,20 +39,6 @@ const AddPropertyForm = () => {
         'Damietta'
     ])
     const [typeProperty,setTypeProperty] = useState([
-        "Office" ,
-        "Retail" , 
-        "Restaurant" , 
-        "Pharmacy" , 
-        "Clinic" , 
-        "Commercial Building" , 
-        "Commercial Land" , 
-        "Agricultural" , 
-        "Warehouse" , 
-        "Garage" , 
-        "Showroom" , 
-        "Co-Working Space" , 
-        "Medical Facility" , 
-        "Other Commercial" , 
         "Apartment" , 
         "Villa" , 
         "Duplex" , 
@@ -67,7 +53,30 @@ const AddPropertyForm = () => {
         "Hotel Apartment" , 
         "Residential Land" ,
         "Other Residential" ,
+        "Office" ,
+        "Office Space",
+        "Retail" , 
+        "Restaurant" , 
+        "Pharmacy" , 
+        "Clinic" , 
+        "Commercial Building" , 
+        "Commercial Land" , 
+        "Agricultural" , 
+        "Warehouse" , 
+        "Garage" , 
+        "Showroom" , 
+        "Co-Working Space" , 
+        "Medical Facility" , 
+        "Other Commercial" , 
+
     ])
+    const handleFileChange = (event) => {
+        const files = event.currentTarget.files;
+        setValues((prevValues) => ({
+            ...prevValues,
+            image: files
+        }));
+    };
     let { handleSubmit,values,handleChange,errors,touched,handleBlur,setValues} = useFormik({
         initialValues:{
             "title":"",
@@ -82,7 +91,7 @@ const AddPropertyForm = () => {
             "country":"Egypt",
             "street":"",
             "area":"",
-            "image":"",
+            "image":[],
             "commercial":"Apartment",
             "location":"",
             "user":id
@@ -103,11 +112,36 @@ const AddPropertyForm = () => {
             commercial:Yup.string().required("Choose Type of Property"),
             city:Yup.string().required("Enter City  of Your Property" ).min(4,"city must be more than 4 character"),
             street:Yup.string().required("Enter street of Your Property" ).min(5,"street must be more than 5 character"),
+            image: Yup.mixed().test("fileRequired", "Image is required", function (value) {
+                return value && value.length > 0;
+            }),
         })
     })
     async function addProperty(){
-        values.image = document.getElementById("image").files[0]
-        let { data } = await axios.post("http://127.0.0.1:8000/property/properties/",values, {
+        const formData = new FormData();
+
+        // Append each form value to FormData
+        formData.append('title', values.title);
+        formData.append('description', values.description);
+        formData.append('property_type', values.property_type);
+        formData.append('price', values.price);
+        formData.append('bed', values.bed);
+        formData.append('bath', values.bath);
+        formData.append('governorate', values.governorate);
+        formData.append('city', values.city);
+        formData.append('is_sale', values.is_sale);
+        formData.append('country', values.country);
+        formData.append('street', values.street);
+        formData.append('area', values.area);
+        formData.append('commercial', values.commercial);
+        formData.append('location', values.location);
+        formData.append('user', id);
+    
+        // Append each file to FormData
+        for (let i = 0; i < values.image.length; i++) {
+            formData.append('image', values.image[i]);
+        }
+        let { data } = await axios.post("http://127.0.0.1:8000/property/properties/",formData, {
             headers: {
                 'Content-Type': 'multipart/form-data',
             },
@@ -261,7 +295,7 @@ const AddPropertyForm = () => {
                 <div className='mb-5'>
                     <label for="image" class="block text-sm mt-3 font-medium leading-6 text-gray-900">Image</label>
 
-                    <input type="file" onBlur={handleBlur} onChange={handleChange} id='image' accept='image/*' multiple class="block w-full px-3 py-2 mt-2 text-sm text-gray-600 bg-white border-gray-200 rounded-lg file:bg-gray-200 file:text-gray-700 file:text-sm file:px-4 file:py-1 file:border-none file:rounded-full  placeholder-gray-400/70 border-2  focus:border-[#398378] focus:outline-[#398378] " />
+                    <input type="file" onBlur={handleBlur} onChange={handleFileChange} id='image' accept='image/*' multiple class="block w-full px-3 py-2 mt-2 text-sm text-gray-600 bg-white border-gray-200 rounded-lg file:bg-gray-200 file:text-gray-700 file:text-sm file:px-4 file:py-1 file:border-none file:rounded-full  placeholder-gray-400/70 border-2  focus:border-[#398378] focus:outline-[#398378] " />
                     {touched.image && errors.image && <p className='text-red-500'>{errors.image}</p>}
                 </div>
                 <button type="submit" className="flex w-full justify-center rounded-md bg-[#398378] px-3 py-2 text-lg font-semibold leading-6 text-white shadow-sm hover:bg-[#31C48D] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Save</button>

@@ -3,7 +3,9 @@ import './landing.css'
 import ContactUs from '../ContactUs/ContactUs'
 import Cart from '../cart/Cart'
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 export default function Landing() {
+  const navigate = useNavigate()
   const [bath,setBath] = useState("")
   function bathToggle(){
     document.getElementById("bath").classList.toggle("hidden")
@@ -129,10 +131,11 @@ export default function Landing() {
         commercial:commercial,
         usage:usage,
         search:document.getElementById("search-bar").value,
-        
       }
     )
     console.log(data)
+    localStorage.setItem("data",JSON.stringify(data))
+    navigate("/search")
   }
   return <>
 <div className='landing h-screen relative'>

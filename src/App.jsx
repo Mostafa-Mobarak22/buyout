@@ -39,7 +39,6 @@ function App() {
       {path: "search",element: <Home/> },
       {path: "properties",element: <Home/> },
       {path: "profile/:id",element: <ProdectedRoute><Profile/></ProdectedRoute> },
-      // {path: "search",element: <Search/>},
       {path: "addproperty/:id",element: <ProdectedRoute><AddPropertyForm/></ProdectedRoute>},
       {path:"propertypage/:id",element: <PropertyPage/>},
       {path:"wishlist",element: <ProdectedRoute><WishList/></ProdectedRoute>},
@@ -64,16 +63,6 @@ function App() {
     <RouterProvider router={route}></RouterProvider>
     <ToastContainer />
   </TokenContext>
-  {/* <Landing/> */}
-  {/* <Footer/> */}
-  {/* <AllUser/> */}
-  {/* <Cart/> */}
-  {/* <Cart/> */}
-  {/* <AddPropertyForm/> */}
-  {/* <Navbar/> */}
-  {/* <Profile/> */}
-  {/* <Loading/> */}
-  {/* <Register/> */}
     </>
   
 }

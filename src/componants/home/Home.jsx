@@ -4,7 +4,8 @@ import axios from 'axios'
 import Loading from '../loading/Loading'
 import { Link, NavLink } from 'react-router-dom'
 export default function Home() {
-  const [buy,setBuy] = useState("sale")
+  
+  const [buy,setBuy] = useState("Sale")
   const [bath,setBath] = useState()
   const [bed,setBed] = useState()
   const [properties,setProperties] = useState(null)
@@ -25,18 +26,42 @@ export default function Home() {
   const [typeProperty,setTypeProperty] = useState([
     'Office',
     'Retail',
-    'Restaurant', 
-    'Pharmacy', 
+    'Restaurant',
+    'Pharmacy',
     'Clinic',
-    'Commercial Building',
-    'Commercial Land', 
+    "Land",
     'Agricultural', 
     'Warehouse', 
     'Garage',
+    'Showroom',
+    'Commercial Land', 
+    'Commercial Building',
+    'Co-Working Space',
+    'Medical Facility',
     'Other Commercial', 
+    'Apartment',
+    'Villa',
+    'Duplex', 
+    'Penthouse', 
+    'Chalet', 
+    'Townhouse', 
+    'Twin House', 
+    'Room',
+    'Cabin',
+    'Roof',
+    'iVilla', 
+    'Hotel Apartment',
+    'Residential Land', 
+    'Other Residential', 
 ])
   useEffect(()=>{
-    getProperty()
+    if(localStorage.getItem('data')){
+      setProperties(JSON.parse(localStorage.getItem('data')))
+    }
+    else{
+      getProperty()
+    }
+    console.log(JSON.parse(localStorage.getItem('data')))
   },[])
   async function getProperty(){
     let {data} = await axios.get(`http://127.0.0.1:8000/property/properties/`)
@@ -59,7 +84,8 @@ export default function Home() {
     document.getElementById("sale").classList.toggle("hidden")
   }
   function search(){
-    
+    localStorage.removeItem("data")
+    getProperty()
     const searchArr= []
     let searchValue = document.getElementById('search-bar').value
     let property_type = document.getElementById('dropdownDefaultButton').value
@@ -90,6 +116,26 @@ export default function Home() {
     }))
     setProperties(x)
   }
+  async function findProperty(){
+    const {data} = await axios.post("http://127.0.0.1:8000/property/search/",
+      {
+        bath:document.getElementById('bathdropdown').value,
+        bed:document.getElementById('beddropdown').value,
+        maxarea:document.getElementById('area').value,
+        minarea:"",
+        minprice:document.getElementById('min').value,
+        maxprice:document.getElementById('max').value,
+        buy: document.getElementById('saledropdown').value,
+        residential:"",
+        commercial:document.getElementById('dropdownDefaultButton').value,
+        usage:"",
+        search:document.getElementById('search-bar').value
+      }
+    )
+    console.log(data)
+    setProperties(data)
+    console.log(document.getElementById('saledropdown').value,document.getElementById('dropdownDefaultButton').value)
+  }
   function reset(){
     getProperty()
   }
@@ -107,7 +153,7 @@ export default function Home() {
           <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
         </svg>
       </button>
-      <div id="dropdown" class="z-10 absolute hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+      <div id="dropdown" class="z-10 h-48 overflow-auto absolute hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
         <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
         <li >
                 <button onClick={()=>{propertyValue('');dropdownToggle()}} class="block text-gray-700 px-2 w-full py-2 hover:bg-gray-200 ">Property Type</button>
@@ -124,7 +170,7 @@ export default function Home() {
       </div>
       </div>
       <div className='relative'>
-      <button id="saledropdown" value={buy} onClick={()=>{buyToggle()}} data-dropdown-toggle="sale" class="text-gray-700 border-2 border-gray-500 focus:bg-[#398378] focus:border-[#398378] focus:text-white focus:outline-none font-medium rounded-lg text-sm px-3 py-2.5 text-center inline-flex items-center  " type="button">{buy=="sale"?"Sale":"Rent"}
+      <button id="saledropdown" value={buy} onClick={()=>{buyToggle()}} data-dropdown-toggle="sale" class="text-gray-700 border-2 border-gray-500 focus:bg-[#398378] focus:border-[#398378] focus:text-white focus:outline-none font-medium rounded-lg text-sm px-3 py-2.5 text-center inline-flex items-center  " type="button">{buy=="Sale"?"Sale":"Rent"}
         <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
           <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
         </svg>
@@ -133,10 +179,10 @@ export default function Home() {
         <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="saledropdown">
         
               <li >
-                <button onClick={()=>{buyValue("rent");buyToggle()}} class="block text-gray-700 px-1 w-full py-2 hover:bg-gray-200 ">Rent</button>
+                <button onClick={()=>{buyValue("Rent");buyToggle()}} class="block text-gray-700 px-1 w-full py-2 hover:bg-gray-200 ">Rent</button>
               </li>
               <li >
-                <button onClick={()=>{buyValue("sale");buyToggle()}} class="block px-1 w-full py-2 hover:bg-gray-200 text-gray-700">Sale</button>
+                <button onClick={()=>{buyValue("Sale");buyToggle()}} class="block px-1 w-full py-2 hover:bg-gray-200 text-gray-700">Sale</button>
               </li>
         </ul>
       </div>
@@ -197,7 +243,7 @@ export default function Home() {
         <input type="number" id='area' placeholder='Area sqm' className='py-2 px-2 focus:ring-0 rounded-lg w-24 border-2 border-gray-500 focus:outline-none focus:border-[#398378]' />
     </div>
 
-      <button onClick={()=>{search()}} className='py-2 px-4 text-white bg-[#398378] rounded-lg font-medium hover:bg-[#31C48D]'><i class="fa-solid fa-magnifying-glass"></i> Search</button>
+      <button onClick={()=>{findProperty()}} className='py-2 px-4 text-white bg-[#398378] rounded-lg font-medium hover:bg-[#31C48D]'><i class="fa-solid fa-magnifying-glass"></i> Search</button>
       <button onClick={()=>{reset()}} className='py-2 px-4 text-white bg-[#398378] rounded-lg font-medium hover:bg-[#31C48D]'><i class="fa-solid fa-magnifying-glass"></i> Reset</button>
     </div>
     
@@ -205,11 +251,9 @@ export default function Home() {
     <div className='grid sm:ms-5 md:grid-cols-2 xl:grid-cols-3 gap-x-3 gap-y-4'>
     {
                         properties.map((property)=>{
-                          
-                            return  <Cart properties={property}/>
-                        })
-                    }
-      {/* <Cart/> */}
+                          return  <Cart properties={property}/> 
+                        }) 
+    }
     </div>
     
   </div>}

@@ -65,31 +65,19 @@ export default function PropertyPage() {
         <div className='col-span-3 lg:col-span-2 h-50  '>
             <Slider {...settings} className='shadow-2xl '>
                 {
-                    [1,1,1,1,1].map((e)=>{
-                        return <img className='h-screen rounded-lg' src={property.image} alt="ui/ux review check"/>
+                    property.images.map((image,index)=>{
+                        return <img key={index} className='h-screen rounded-lg' src={"http://127.0.0.1:8000"+image} alt="ui/ux review check"/>
                     })
                 }
             </Slider>
         </div>
         <div className='lg:flex lg:flex-col gap-4  hidden'>
-            <div className='shadow-2xl'>
-                <Slider {...settings} className="rounded-lg">
-                    {
-                        [1,1,1,1,1].map((e)=>{
-                            return <img className='h-[48vh] rounded-lg' src={property.image} alt="ui/ux review check"/>
-                        })
-                    }
-                </Slider>
+            <div className='shadow-2xl rounded-lg'>
+                <img  className='h-[48vh] rounded-lg' src={"http://127.0.0.1:8000"+property.images[1]} alt="ui/ux review check"/>
             </div>
-            <div className='shadow-2xl'> 
-                <Slider {...settings}>
-                    {
-                        [1,1,1,1,1].map((e)=>{
-                            return <img className='h-[49vh] rounded-lg' src={property.image} alt="ui/ux review check"/>
-                        })
-                    }
-                </Slider>
-            </div>            
+            <div className='shadow-2xl rounded-lg'>
+                <img  className='h-[48vh] rounded-lg' src={"http://127.0.0.1:8000"+property.images[2]} alt="ui/ux review check"/>
+            </div>           
         </div>
     </div>
     <div className='grid grid-cols-3 mt-24 mx-auto mb-40 gap-4'>
@@ -110,7 +98,6 @@ export default function PropertyPage() {
                     </div>
                     <div className='flex flex-col gap-2 px-2'>
                         <span className='grid mt-2'>
-                            {/* <i class="fa-solid fa-bed m-auto text-xl "></i> */}
                             <i class="fa-solid fa-bath m-auto text-xl"></i>
                         </span>
                         <span>
