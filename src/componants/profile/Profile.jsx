@@ -94,7 +94,7 @@ return <>
         !profileData ? <Loading /> : 
 <div className="flex flex-col justify-center px-6 py-14 lg:px-8">
     <div className="w-20 h-20 grid rounded-full mx-auto hover:scale-150 duration-150 shadow-lg">
-        <img className='w-100 rounded-full m-auto ' alt="Navbar component" src={profileData.image?"http://127.0.0.1:8000"+profileData.image : profile} />
+        <img className='w-100 rounded-full h-100 m-auto ' alt="Navbar component" src={profileData.image?"http://127.0.0.1:8000"+profileData.image : profile} />
     </div>
 
     <div className="mt-10 sm:mx-auto sm:max-w-[46rem] sm:w-full">

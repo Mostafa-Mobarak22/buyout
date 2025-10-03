@@ -55,31 +55,36 @@ export default function MyProperty() {
       });
     } 
   return <>
-  {console.log(properties==false)}
 {
     properties == false ? <EmptyWishPage title = "Property"/> : <div className='container mt-24'>
-<div className='grid sm:ms-5 md:grid-cols-2 xl:grid-cols-3 gap-x-3 gap-y-4'>
+<div className='grid sm:ms-5 md:grid-cols-2 xl:grid-cols-3 gap-x-3 gap-y-6'>
 {
         properties.map((properties,index)=>{
             return <>
                     <div key={index} className="flex w-full max-w-[33rem] sm:max-w-[36rem] flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-lg">
                     <Link to={"/propertypage/"+properties.id}>
-                        <div className="rounded-xl overflow-hidden rounded-b-none bg-blue-gray-500 bg-clip-border text-white shadow-md shadow-blue-gray-500/40">
+                        <div className="relative rounded-xl h-[220px] overflow-hidden rounded-b-none bg-blue-gray-500 bg-clip-border text-white shadow-md shadow-blue-gray-500/40">
+                            {
+                                properties.is_sale == 'Rent' ?
+                                <span  className='absolute top-2 left-2 z-10 rounded-full bg-slate-400 bg-opacity-25 pt-1 w-24 h-8 text-center font-semibold text-[#398378]' > {properties.is_sale} </span>
+                                :
+                                <span  className='absolute top-2 left-2 z-10 rounded-full bg-slate-400 bg-opacity-25 pt-1 w-24 h-8 text-center font-semibold text-red-700' > {properties.is_sale} </span>
+                            }
                             <Slider {...settings}>
                                 {
                                     properties.images.map((image,index)=>{
-                                        return <img key={index} className='w-100 h-[300px]' src={"http://127.0.0.1:8000"+image} alt="ui/ux review check"/>
+                                        return <img key={index} className='w-100  h-[220px]' src={"http://127.0.0.1:8000"+image} alt="ui/ux review check"/>
                                     })
                                 }
                             </Slider>
                         </div>
                     </Link>
-                        <div className="p-6">
+                        <div className="px-3 py-2">
                             <div className="mb-1 flex flex-col justify-between">
                                 <div className='flex justify-between'>
                                     <div>
                                         <h6 className="block font-sans text-sm font-normal leading-snug tracking-normal text-blue-gray-900 antialiased">{properties.commercial}</h6>
-                                        <h2 className="block font-sans text-2xl pb-3 font-bold leading-snug tracking-normal text-black antialiased">{properties.price.toLocaleString('en-EG', { style: 'currency', currency: 'EGP' })}</h2>
+                                        <h2 className="block font-sans text-2xl pb-1 font-bold leading-snug tracking-normal text-black antialiased">{properties.price.toLocaleString('en-EG', { style: 'currency', currency: 'EGP' })}</h2>
                     
                                     </div>
                                     <div className='w-12'>
@@ -88,10 +93,9 @@ export default function MyProperty() {
                                 </div>
                     
                                 <h5 className="line-clamp-1 mb-2 font-sans text-xl font-medium leading-snug tracking-normal text-blue-gray-900 antialiased ">{properties.title}</h5>
-                                <p className="line-clamp-1 mb-2 font-sans text-base font-light leading-relaxed text-gray-700 antialiased  mt-1"><i class="fa-solid fa-location-dot me-2 text-[#31C48D]"></i>{properties.location}</p>
+                                <p className="line-clamp-1 mb-2 font-sans text-base font-light leading-relaxed text-gray-700 antialiased "><i class="fa-solid fa-location-dot me-2 text-[#31C48D]"></i>{properties.location}</p>
                             </div>
-                            <p className="line-clamp-1  font-sans text-base font-light leading-relaxed text-gray-700 antialiased ">{properties.description}</p>
-                            <div className="mt-6 flex flex-wrap items-center gap-2">
+                            <div className="mt-1 flex flex-wrap items-center gap-2">
                                 <span
                                     data-tooltip-target="money"
                                     className="pe-1 text-sm text-black transition-colors"
@@ -118,7 +122,7 @@ export default function MyProperty() {
                             </div>
                         </div>
                     
-                        <div className="p-3 pt-3 flex gap-1">
+                        <div className="px-3 py-1 flex gap-1">
                         {properties.is_published ?
                             <button
                                 className="block w-full select-none rounded-lg bg-[#398378] text-center align-middle font-sans text-2xl font-bold  text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-[#398378] hover:bg-red-600 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"

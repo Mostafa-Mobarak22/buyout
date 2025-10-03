@@ -7,7 +7,7 @@ const EmptyWishPage = ({title}) => {
 
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8">
+      <div className="max-w-md w-full space-y-1">
         <motion.div
           initial={{ opacity: 0, y: -50 }}
           animate={{ opacity: 1, y: 0 }}
@@ -36,13 +36,12 @@ const EmptyWishPage = ({title}) => {
         >
           <Link to={'/'}
             href="/shop"
-            className="w-full flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            className="w-full flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-[#398378] hover:bg-[#225e55] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#225e55]"
           >
             <FaArrowLeft className="mr-2" />
             Back To Home
           </Link>
         </motion.div>
-
       </div>
     </div>
   );

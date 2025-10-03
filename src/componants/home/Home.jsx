@@ -57,11 +57,16 @@ export default function Home() {
   useEffect(()=>{
     if(localStorage.getItem('data')){
       setProperties(JSON.parse(localStorage.getItem('data')))
+      if(!properties) {
+
+        getProperty()
+        console.log(properties)
+      }
     }
     else{
       getProperty()
+      console.log(properties)
     }
-    console.log(JSON.parse(localStorage.getItem('data')))
   },[])
   async function getProperty(){
     let {data} = await axios.get(`http://127.0.0.1:8000/property/properties/`)
@@ -132,15 +137,14 @@ export default function Home() {
         search:document.getElementById('search-bar').value
       }
     )
-    console.log(data)
     setProperties(data)
-    console.log(document.getElementById('saledropdown').value,document.getElementById('dropdownDefaultButton').value)
   }
   function reset(){
     getProperty()
   }
   return <>
-{ !properties ? <Loading/> :  
+{ !properties ? <Loading/> : 
+
   <div className='container pt-10 mt-14'>
     <div className='flex flex-wrap mt-3 m-5 mx-0 pb-5 border-b-2 gap-3'>
       <div className='relative'>
@@ -248,10 +252,10 @@ export default function Home() {
     </div>
     
     
-    <div className='grid sm:ms-5 md:grid-cols-2 xl:grid-cols-3 gap-x-3 gap-y-4'>
+    <div className='grid sm:ms-5 md:grid-cols-2 xl:grid-cols-3 gap-x-3 gap-y-6'>
     {
                         properties.map((property)=>{
-                          return  <Cart properties={property}/> 
+                          return  <Cart properties={property} /> 
                         }) 
     }
     </div>

@@ -33,21 +33,22 @@ export default function Navbar() {
         document.getElementById("navdropdown").classList.toggle("hidden")
       }
 return <>
-<div className="navbar bg-[#398378] px-5 fixed top-0 z-40">
+<div className="navbar bg-[#398378] px-5 fixed top-0 right-0 left-0 z-40">
     <div className="flex w-40">
         <Link to={"/"}><img className='w-100' src={logo}/></Link>
     </div>
     <div className='hidden lg:flex'>
-        <ul className='flex gap-5 text-lg text-white'>
+        <ul className='flex gap-4 text-lg text-white'>
             <li>
                 <NavLink to={"/"}>Home</NavLink>
             </li>
             <li>
                 <NavLink to={"/properties"}>Properties</NavLink>
             </li>
-            <li>
-                <NavLink to={"/search"}>Search</NavLink>
-            </li>
+            {/* <li>
+                <NavLink to={"/properties#search"}>Search</NavLink> 
+                 <a href="#search">Search</a>
+            </li> */}
             <li>
                 <NavLink to={"/contactus"}>ContactUs</NavLink>
             </li>
@@ -55,8 +56,8 @@ return <>
     </div>
     <div className="flex-none relative">
     
-{        token && <div className="dropdown dropdown-end px-3">
-            <div tabIndex={0} role="button" className="w-10 h-10 grid pt-2 hover:text-[#31C48D] hover:scale-150 duration-100">
+{        token && <div className="dropdown dropdown-end px-3 pb-2">
+            <div tabIndex={0} role="button" className="w-10 h-10 grid pt-2 hover:text-[#31C48D] hover:scale-100 duration-500">
                 <div className="indicator relative m-auto">
                     <Link to="/wishlist">
                         <svg
@@ -80,7 +81,7 @@ return <>
         <div className="dropdown dropdown-end">
             <div tabIndex={0} role="button" className="btn btn-ghost btn-circle  avatar focus:border-0 hover:scale-125 duration-100">
                 <div className="w-full border-2 border-[#ADBFB8] rounded-full grid">
-                    <img alt="login" src={img ? "http://127.0.0.1:8000"+img : profile} className='hover:scale-150 duration-100 w-full mx-auto rounded-full size-fit'/>
+                    <img alt="login" src={img ? "http://127.0.0.1:8000"+img : profile} className=' w-full mx-auto rounded-full size-fit'/>
                 </div>
             </div>
             <ul tabIndex={0} className="menu menu-sm dropdown-content bg-[#398378] rounded-box z-[1] mt-3 w-52 p-2 shadow">
@@ -107,7 +108,7 @@ return <>
                 </>}
             </ul>
         </div>
-        <button onClick={()=>{navToggle()}} className='mx-3 px-2 text-2xl border-1 rounded-md border-gray-400 hover:border-black lg:hidden '><i class="fa-solid fa-bars"></i></button>
+        <button onClick={()=>{navToggle()}} className='mx-3 hover:duration-500 px-2 text-2xl border-3 rounded-md border-[#398378] hover:border-[#31C48D] lg:hidden ring-[#225e55]'><i class="fa-solid fa-bars text-[#103631]"></i></button>
         <div id='navdropdown' className='fixed hidden  top-[80px] right-5 bg-[#398378] rounded-md'>
         <ul tabIndex={0} className="menu menu-sm dropdown-content bg-[#398378] rounded-box z-[1] mt-3 w-52 p-2 shadow">
             <li className='text-white font-semibold text-decoration-none'>

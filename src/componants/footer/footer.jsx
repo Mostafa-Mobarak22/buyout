@@ -3,7 +3,7 @@ import logo from '../../assets/logo-no-background.png'
 import { Link } from 'react-router-dom'
 const Footer = () => {
   return <>
-<footer class="bg-gray-200 mt-5">
+<footer class="bg-gray-200 mt-5 ">
     <div class="container flex flex-col items-center justify-between p-6 mx-auto space-y-4 sm:space-y-0 sm:flex-row">
         <Link to={"/"}>
             <img class="w-auto h-10" src={logo} alt=""/>

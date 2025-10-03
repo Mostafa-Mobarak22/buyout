@@ -32,7 +32,8 @@ export default function PropertyPage() {
         setSuccess(data.success_massage)
     }
     var settings = {
-        dots: true,
+        arrows: false,
+        dots: false,
         infinite: true,
         speed: 500,
         slidesToShow: 1,
@@ -45,8 +46,8 @@ export default function PropertyPage() {
     async function getProprety(){
         const { data } = await axios.get(`http://127.0.0.1:8000/property/properties/${id}/`)
         setProperty(data)
-        console.log(data)
         sameProprety(data.commercial)
+        console.log(data)
 
     }
     async function sameProprety(commercial){
@@ -61,31 +62,31 @@ export default function PropertyPage() {
   return <>
 {!(property) ? <Loading/>:
 <div className="container pt-5">
-    <div className='grid grid-cols-3 mb-10 gap-4 mx-auto'>
-        <div className='col-span-3 lg:col-span-2 h-50  '>
-            <Slider {...settings} className='shadow-2xl '>
+    <div className='grid grid-cols-3 mb-5 gap-1 mx-auto'>
+        <div className='col-span-3 lg:col-span-2  rounded-lg'>
+            <Slider {...settings} className='shadow-2xl rounded-lg'>
                 {
                     property.images.map((image,index)=>{
-                        return <img key={index} className='h-screen rounded-lg' src={"http://127.0.0.1:8000"+image} alt="ui/ux review check"/>
+                        return <img key={index} className='w-100 h-[515px] rounded-lg' src={"http://127.0.0.1:8000"+image} alt="ui/ux review check"/>
                     })
                 }
             </Slider>
         </div>
-        <div className='lg:flex lg:flex-col gap-4  hidden'>
+        <div className='lg:flex lg:flex-col gap-1  hidden '>
             <div className='shadow-2xl rounded-lg'>
-                <img  className='h-[48vh] rounded-lg' src={"http://127.0.0.1:8000"+property.images[1]} alt="ui/ux review check"/>
+                <img  className=' w-100 rounded-lg h-64' src={"http://127.0.0.1:8000"+property.images[1]} alt="ui/ux review check"/>
             </div>
             <div className='shadow-2xl rounded-lg'>
-                <img  className='h-[48vh] rounded-lg' src={"http://127.0.0.1:8000"+property.images[2]} alt="ui/ux review check"/>
+                <img  className=' w-100 rounded-lg h-64' src={"http://127.0.0.1:8000"+property.images[2]} alt="ui/ux review check"/>
             </div>           
         </div>
     </div>
-    <div className='grid grid-cols-3 mt-24 mx-auto mb-40 gap-4'>
+    <div className='grid grid-cols-3  mx-auto mb-20 gap-4'>
         <div className='col-span-3 lg:col-span-2 '>
             <div className='flex md:flex-row flex-col justify-between items-center pb-3'>
                 <div>
                     <span className='text-gray-500 ps-3'>{property.commercial}</span>
-                    <h1 className='font-extrabold text-4xl p-3'>{property.price.toLocaleString('en-EG', { style: 'currency', currency: 'EGP' })}</h1>
+                    <h1 className='font-extrabold text-4xl p-3 pt-1'>{property.price.toLocaleString('en-EG', { style: 'currency', currency: 'EGP' })}</h1>
                 </div>
                 <div className='flex gap-3'>
                     <div className='flex flex-col gap-2'>
@@ -124,12 +125,12 @@ export default function PropertyPage() {
                 <i class="fa-solid fa-location-dot text-xl text-[#31C48D]"></i>
                 <p>{property.location}</p>
             </div>
-            <div className='pb-16'>
+            <div className='pb-4'>
                 <p className='text-gray-700 text-lg tracking-wide leading-loose'>
                     {property.description}
                 </p>
             </div>
-            <div className='py-5  border-y-2 border-gray-300'>
+            <div className='py-4  border-y-2 border-gray-300'>
                 <h2 className='text-2xl font-bold'>Property details</h2>
                 <div className='flex pt-5 flex-col md:flex-row justify-between'>
                     <div className='flex flex-col gap-5 pb-0 sm:pb-4'>
@@ -168,17 +169,15 @@ export default function PropertyPage() {
                                 Bedrooms
                             </span>
                             <span className='text-xl  text-gray-700'>
-                                
-                                
                                 {property.bed}
                             </span>
                         </div>            
                     </div>
                 </div>
             </div>
-            <div className='pt-5'>
-            <h2 className='text-2xl font-bold '>More available in the same type</h2>
-            <div className='pt-5 grid grid-cols-2 gap-5'>
+            <div className='pt-4'>
+            <h2 className='text-2xl pb-4 font-bold '>More available in the same type</h2>
+            <div className='pt-3 grid grid-cols-2 gap-5'>
             {
                         samillerProperty?.map((property)=>{
                         
@@ -193,12 +192,15 @@ export default function PropertyPage() {
         </div>
 
         </div>
-        <div className='lg:flex lg:flex-col h-40 col-span-3 lg:col-span-1 rounde-lg shadow-lg sticky top-20'>
+        <div className='lg:flex lg:flex-col h-40 col-span-3 lg:col-span-1 rounded-2xl shadow-lg sticky top-20'>
             <div className='flex pt-3 align-items-center justify-around '>
-                <div className='h-20 w-20 rounded-full'>
+                <div className='h-20 w-20 rounded-full p-2' >
                     <img className='w-full rounded-full' src={property.user_id["image"] ? property.user_id["image"] : profile} alt="" />
                 </div>
-                <h2>{property.user_id["user_name"]}</h2>
+                <div className='text-[#398378]'>
+                    <h2 className='text-2xl font-bold'>{property.user_id["user_name"]}</h2>
+                    <h3 className='text-xl'>+2{property.user_id["phone"]}</h3>
+                </div>
             </div>
             <div className=" p-3 flex gap-1">
                 <button
